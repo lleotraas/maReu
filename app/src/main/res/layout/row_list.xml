@@ -18,7 +18,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="16dp"
-        android:src="@drawable/baseline_circle_24"
+        android:src="@drawable/ic_circle_24"
         app:tint="@android:color/holo_blue_light" />
 
     <TextView
@@ -26,11 +26,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/item_list_img"
+        android:layout_marginTop="2dp"
         app:layout_constraintStart_toEndOf="@+id/item_list_img"
         app:layout_constraintTop_toTopOf="@+id/item_list_img"
-        android:textSize="16sp"
+        android:textSize="@dimen/text_normal_size"
         android:textStyle="bold"
         android:text="Réunion A" />
 
@@ -52,7 +51,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/item_list_hour_txt"
         app:layout_constraintTop_toTopOf="@+id/item_list_hour_txt"
         app:layout_constraintStart_toEndOf="@+id/item_list_hour_txt"
-        android:textSize="16sp"
+        android:textSize="@dimen/text_normal_size"
         android:textStyle="bold"
         android:text="Mario"/>
 
@@ -75,7 +74,7 @@
         app:layout_constraintTop_toTopOf="@+id/item_list_img"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="16dp"
-        android:src="@drawable/baseline_delete_24"
+        android:src="@drawable/ic_delete_24"
         android:background="@android:color/transparent"
         app:tint="#656060"/>
 

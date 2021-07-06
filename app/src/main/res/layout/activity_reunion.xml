@@ -8,7 +8,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".view.MainActivity">
+    tools:context=".view.ReunionActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/activity_main_toolbar"
@@ -17,7 +17,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="@android:color/white"
-        android:background="?attr/colorPrimary"/>
+        android:background="?attr/colorPrimary"
+        app:title="Ma Réu"/>
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -30,20 +31,20 @@
             android:layout_marginTop="10dp"
             android:layout_marginHorizontal="16dp"
             app:layoutManager="LinearLayoutManager"
-            tools:context=".view.MainActivity"
-            tools:listitem="@layout/list">
+            tools:context=".view.ReunionActivity"
+            tools:listitem="@layout/row_list">
         </androidx.recyclerview.widget.RecyclerView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/activity_main_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginRight="16dp"
         android:backgroundTint="@android:color/holo_red_dark"
         android:src="@drawable/ic_add_24"
-        android:tint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:rippleColor="@color/white" />
+         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

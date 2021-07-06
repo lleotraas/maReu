@@ -10,4 +10,10 @@ import java.util.List;
 public interface ReunionApiService {
 
     List<Reunion> getReunion();
+
+    void removeReunion(Reunion reunion);
+
+    void addReunion();
+
+    void sorting();
 }

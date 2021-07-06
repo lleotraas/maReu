@@ -15,4 +15,19 @@ public class DummyReunionApiService implements ReunionApiService{
     public List<Reunion> getReunion() {
         return mReunions;
     }
+
+    @Override
+    public void removeReunion(Reunion reunion) {
+
+    }
+
+    @Override
+    public void addReunion() {
+
+    }
+
+    @Override
+    public void sorting() {
+
+    }
 }

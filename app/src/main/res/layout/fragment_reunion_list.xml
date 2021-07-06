@@ -14,8 +14,8 @@
        android:layout_height="match_parent"
        android:layout_marginHorizontal="16dp"
        app:layoutManager="LinearLayoutManager"
-       tools:context=".view.MainActivity"
-       tools:listitem="@layout/list">
+       tools:context=".view.ReunionActivity"
+       tools:listitem="@layout/row_list">
    </androidx.recyclerview.widget.RecyclerView>
 
 </FrameLayout>
