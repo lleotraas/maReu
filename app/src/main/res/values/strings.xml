@@ -2,4 +2,16 @@
     <string name="app_name">Ma Réu</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="room_array">
+        <item>Réunion A</item>
+        <item>Réunion B</item>
+        <item>Réunion C</item>
+        <item>Réunion D</item>
+        <item>Réunion E</item>
+        <item>Réunion F</item>
+        <item>Réunion G</item>
+        <item>Réunion H</item>
+        <item>Réunion I</item>
+        <item>Réunion J</item>
+    </string-array>
 </resources>

@@ -30,4 +30,14 @@ public class DummyReunionApiService implements ReunionApiService{
     public void sorting() {
 
     }
+
+    @Override
+    public String makeDateString(int day, int month, int year) {
+        return String.format("%02d/%02d/%4d",day, month, year);
+    }
+
+    @Override
+    public String makeHourString(int hour, int minute) {
+        return String.format("%02d:%02d", hour, minute);
+    }
 }

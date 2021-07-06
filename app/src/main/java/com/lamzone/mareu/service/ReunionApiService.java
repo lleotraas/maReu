@@ -16,4 +16,8 @@ public interface ReunionApiService {
     void addReunion();
 
     void sorting();
+
+    String makeDateString(int day, int month, int year);
+
+    String makeHourString(int hour, int minute);
 }
