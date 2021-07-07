@@ -6,24 +6,30 @@ import java.util.List;
  * Created by lleotraas on 04.
  */
 public class Reunion {
+    private long mId;
+    private String mTime;
     private String mRoom;
-    private String mHour;
     private String mName;
     private List<String>mMembers;
 
-    public Reunion(String room, String hour, String name, List<String> members) {
+    public Reunion(long id, String room, String time, String name, List<String> members) {
+        mId = id;
+        mTime = time;
         mRoom = room;
-        mHour = hour;
         mName = name;
         mMembers = members;
     }
 
-    public String getRoom() {
-        return mRoom;
+    public long getId() {
+        return mId;
     }
 
-    public String getHour() {
-        return mHour;
+    public String getTime() {
+        return mTime;
+    }
+
+    public String getRoom() {
+        return mRoom;
     }
 
     public String getName() {

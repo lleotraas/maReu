@@ -22,18 +22,13 @@ public class DummyReunionApiService implements ReunionApiService{
     }
 
     @Override
-    public void addReunion() {
-
+    public void addReunion(long id, String room, String time, String name, List<String> members) {
+        mReunions.add(new Reunion(id, room, time, name, members));
     }
 
     @Override
     public void sorting() {
 
-    }
-
-    @Override
-    public String makeDateString(int day, int month, int year) {
-        return String.format("%02d/%02d/%4d",day, month, year);
     }
 
     @Override

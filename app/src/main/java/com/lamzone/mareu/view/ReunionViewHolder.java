@@ -34,7 +34,7 @@ public class ReunionViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(Reunion reunion){
         mRoom.setText(reunion.getRoom());
-        mHour.setText(" - " + reunion.getHour() + " - ");
+        mHour.setText(" - " + reunion.getTime() + " - ");
         mName.setText(reunion.getName());
     }
 }

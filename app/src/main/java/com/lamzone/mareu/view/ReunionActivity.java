@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
@@ -20,6 +21,7 @@ import java.util.List;
 
 public class ReunionActivity extends AppCompatActivity {
 
+    private static final String TAG = ReunionActivity.class.getSimpleName();
     private RecyclerView mRecyclerView;
     private ReunionListAdapter mReunionListAdapter;
     private List<Reunion> mReunions;
@@ -30,6 +32,7 @@ public class ReunionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reunion);
+        Log.d(TAG, "onCreate: c'est créé quoi");
 
         mAddButton = findViewById(R.id.activity_main_fab);
 
@@ -38,11 +41,7 @@ public class ReunionActivity extends AppCompatActivity {
 
         mRecyclerView = findViewById(R.id.list_reunion);
 
-        mReunionListAdapter = new ReunionListAdapter(mReunions);
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        mRecyclerView.setAdapter(mReunionListAdapter);
-        this.configureToolbar();
 
         mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,5 +61,28 @@ public class ReunionActivity extends AppCompatActivity {
     private void configureToolbar(){
         Toolbar toolbar = findViewById(R.id.activity_main_toolbar);
         setSupportActionBar(toolbar);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: c'est résumé");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart: c'est starté");
+        mReunionListAdapter = new ReunionListAdapter(mReunions);
+
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        mRecyclerView.setAdapter(mReunionListAdapter);
+        this.configureToolbar();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop: c'est stoppé");
     }
 }
