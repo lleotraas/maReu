@@ -32,7 +32,6 @@ import java.util.Locale;
  */
 public class AddReunion extends AppCompatActivity {
 
-    private TextView mTitleTxt;
     private Button mTimeBtn;
     private Spinner mRoomSpinner;
     private EditText mNameInput;
@@ -54,7 +53,6 @@ public class AddReunion extends AppCompatActivity {
         mApiService = DependencyInjector.getReunionApiService();
         initTimePicker();
 
-        mTitleTxt = findViewById(R.id.activity_add_reunion_title_txt);
         mTimeBtn = findViewById(R.id.activity_add_reunion_time_btn);
         mRoomSpinner = findViewById(R.id.activity_add_reunion_room_spinner);
         mNameInput = findViewById(R.id.activity_add_reunion_name_input);
@@ -69,7 +67,6 @@ public class AddReunion extends AppCompatActivity {
         mNameInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
@@ -79,7 +76,6 @@ public class AddReunion extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
 
@@ -130,11 +126,14 @@ public class AddReunion extends AppCompatActivity {
         mValidateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                long id = System.currentTimeMillis();
-                String time = mTimeBtn.getText().toString();
-                String room = mRoomSpinner.getSelectedItem().toString();
-                String name = mNameInput.getText().toString();
-                mApiService.addReunion(id, room, time, name, mMembers);
+                Reunion reunion = new Reunion(
+                        System.currentTimeMillis(),
+                        mTimeBtn.getText().toString(),
+                        mRoomSpinner.getSelectedItem().toString(),
+                        mNameInput.getText().toString(),
+                        mMembers
+                );
+                mApiService.addReunion(reunion);
                 finish();
             }
         });

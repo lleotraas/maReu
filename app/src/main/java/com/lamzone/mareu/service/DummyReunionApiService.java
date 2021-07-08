@@ -22,8 +22,8 @@ public class DummyReunionApiService implements ReunionApiService{
     }
 
     @Override
-    public void addReunion(long id, String room, String time, String name, List<String> members) {
-        mReunions.add(new Reunion(id, room, time, name, members));
+    public void addReunion(Reunion reunion) {
+        mReunions.add(reunion);
     }
 
     @Override

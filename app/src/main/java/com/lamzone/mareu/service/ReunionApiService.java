@@ -13,7 +13,7 @@ public interface ReunionApiService {
 
     void removeReunion(Reunion reunion);
 
-    void addReunion(long id, String room, String time, String name, List<String> members);
+    void addReunion(Reunion reunion);
 
     void sorting();
 
