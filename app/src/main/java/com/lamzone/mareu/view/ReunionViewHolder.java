@@ -1,6 +1,7 @@
 package com.lamzone.mareu.view;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,8 +34,13 @@ public class ReunionViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Reunion reunion){
-        mRoom.setText(reunion.getRoom());
+        mRoom.setText("Réunion " + reunion.getRoom());
         mHour.setText(" - " + reunion.getTime() + " - ");
         mName.setText(reunion.getName());
+        mMember.setText(reunion.toString());
+    }
+
+    public ImageButton getDelete() {
+        return mDelete;
     }
 }

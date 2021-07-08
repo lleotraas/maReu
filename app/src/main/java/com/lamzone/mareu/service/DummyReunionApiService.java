@@ -18,7 +18,7 @@ public class DummyReunionApiService implements ReunionApiService{
 
     @Override
     public void removeReunion(Reunion reunion) {
-
+        mReunions.remove(reunion);
     }
 
     @Override

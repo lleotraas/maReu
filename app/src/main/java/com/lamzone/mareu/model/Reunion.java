@@ -39,4 +39,13 @@ public class Reunion {
     public List<String> getMembers() {
         return mMembers;
     }
+
+    @Override
+    public String toString() {
+        String members = "";
+        for (String string:mMembers) {
+            members += string + ", ";
+        }
+        return members;
+    }
 }

@@ -32,7 +32,6 @@ public class ReunionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reunion);
-        Log.d(TAG, "onCreate: c'est créé quoi");
 
         mAddButton = findViewById(R.id.activity_main_fab);
 
@@ -66,13 +65,11 @@ public class ReunionActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume: c'est résumé");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d(TAG, "onStart: c'est starté");
         mReunionListAdapter = new ReunionListAdapter(mReunions);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -83,6 +80,5 @@ public class ReunionActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        Log.d(TAG, "onStop: c'est stoppé");
     }
 }

@@ -2,6 +2,7 @@
     <string name="app_name">Ma Réu</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="reunion">"Réunion "</string>
     <string-array name="room_array">
         <item>A</item>
         <item>B</item>
