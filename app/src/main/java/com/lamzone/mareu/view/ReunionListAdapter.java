@@ -1,5 +1,6 @@
 package com.lamzone.mareu.view;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,7 +52,10 @@ public class ReunionListAdapter extends RecyclerView.Adapter<ReunionViewHolder> 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(ReunionListAdapter.class.getSimpleName(), "onClick: detail launch with name : " + mReunions.get(position).getName());
+                Reunion extraReunion = mReunions.get(holder.getAdapterPosition());
+                Intent detailActivity = new Intent(v.getContext(), ReunionDetailActivity.class);
+                detailActivity.putExtra("reunion", extraReunion);
+                v.getContext().startActivity(detailActivity);
             }
         });
     }

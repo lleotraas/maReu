@@ -1,9 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.ReunionDetailActivity">
+    android:orientation="vertical">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/activity_detail_reunion_return_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_normal_size"
+        android:backgroundTint="@android:color/transparent"
+        android:backgroundTintMode="src_in"
+        android:outlineSpotShadowColor="@android:color/transparent"
+        android:outlineAmbientShadowColor="@android:color/transparent"
+        android:src="@drawable/ic_arrow_back_24"
+        android:tint="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:rippleColor="@color/white" />
+
+    <TextView
+        android:id="@+id/activity_detail_reunion_title_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="@dimen/margin_large_size"
+        android:padding="@dimen/padding_normal_size"
+        android:text="Réunion de Mario"
+        android:textSize="@dimen/text_extralarge_size"
+        android:textStyle="bold"
+        android:textAlignment="center"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/activity_detail_reunion_room_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/activity_detail_reunion_title_txt"
+        app:layout_constraintStart_toStartOf="@id/activity_detail_reunion_title_txt"
+        android:layout_marginVertical="@dimen/margin_normal_size"
+        android:padding="@dimen/padding_normal_size"
+        android:text="Salle"
+        android:textSize="@dimen/text_large_size"
+        android:textAlignment="center"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/activity_detail_reunion_room_letter_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/activity_detail_reunion_title_txt"
+        app:layout_constraintStart_toEndOf="@id/activity_detail_reunion_room_txt"
+        android:layout_marginVertical="@dimen/margin_normal_size"
+        android:padding="@dimen/padding_normal_size"
+        android:text="F"
+        android:textSize="@dimen/text_large_size"
+        android:textAlignment="center"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/activity_detail_reunion_at_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/activity_detail_reunion_title_txt"
+        app:layout_constraintStart_toEndOf="@id/activity_detail_reunion_room_letter_txt"
+        android:layout_marginVertical="@dimen/margin_normal_size"
+        android:padding="@dimen/padding_normal_size"
+        android:text="à"
+        android:textSize="@dimen/text_large_size"
+        android:textAlignment="center"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/activity_detail_reunion_time_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/activity_detail_reunion_title_txt"
+        app:layout_constraintStart_toEndOf="@id/activity_detail_reunion_at_txt"
+        android:layout_marginVertical="@dimen/margin_normal_size"
+        android:padding="@dimen/padding_normal_size"
+        android:text="15H30"
+        android:textSize="@dimen/text_large_size"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/activity_detail_reunion_member_title_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/activity_detail_reunion_room_txt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="@dimen/margin_large_size"
+        android:padding="@dimen/padding_normal_size"
+        android:text="Participants"
+        android:textSize="@dimen/text_extralarge_size"
+        android:textStyle="bold"
+        android:textAlignment="center"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/activity_detail_reunion_member_list_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/activity_detail_reunion_member_title_txt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="@dimen/margin_large_size"
+        android:padding="@dimen/padding_normal_size"
+        android:text=" freddy@hotmail.com \n lleotraas@gmail.com \n machintruc@amazon.uk \n toutdroit@wanadoo.jp \n johndoe@winamax.com"
+        android:textSize="@dimen/text_large_size"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
