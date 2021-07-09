@@ -1,38 +1,32 @@
 package com.lamzone.mareu.view;
 
-import android.app.AlertDialog;
-import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-
-
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.lamzone.mareu.R;
 import com.lamzone.mareu.injector.DependencyInjector;
 import com.lamzone.mareu.model.Reunion;
 import com.lamzone.mareu.service.ReunionApiService;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by lleotraas on 06.
  */
 public class AddReunion extends AppCompatActivity {
 
-    private Button mTimeBtn;
+    private Spinner mHourSpinner;
+    private Spinner mMinuteSpinner;
     private Spinner mRoomSpinner;
     private EditText mNameInput;
     private EditText mMemberInput;
@@ -42,7 +36,6 @@ public class AddReunion extends AppCompatActivity {
     private ArrayAdapter<CharSequence> spinnerAdapter;
     private List<String> mMembers;
 
-    private TimePickerDialog mTimePickerDialog;
     private ReunionApiService mApiService;
 
     @Override
@@ -51,9 +44,9 @@ public class AddReunion extends AppCompatActivity {
         setContentView(R.layout.add_reunion);
 
         mApiService = DependencyInjector.getReunionApiService();
-        initTimePicker();
 
-        mTimeBtn = findViewById(R.id.activity_add_reunion_time_btn);
+        mHourSpinner = findViewById(R.id.activity_add_reunion_hour_spinner);
+        mMinuteSpinner = findViewById(R.id.activity_add_reunion_minute_spinner);
         mRoomSpinner = findViewById(R.id.activity_add_reunion_room_spinner);
         mNameInput = findViewById(R.id.activity_add_reunion_name_input);
         mMemberInput = findViewById(R.id.activity_add_reunion_members_input);
@@ -78,34 +71,23 @@ public class AddReunion extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         });
-
         addMember();
         validateReunion();
     }
 
-    private void initTimePicker() {
-        TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hour, int minute) {
-                String time = mApiService.makeHourString(hour, minute);
-                mTimeBtn.setText(time);
-            }
-        };
-        Calendar cal = Calendar.getInstance(Locale.FRANCE);
-        int hour = cal.get(Calendar.HOUR_OF_DAY);
-        int minute = cal.get(Calendar.MINUTE);
-        int style = AlertDialog.THEME_HOLO_LIGHT;
-        mTimePickerDialog = new TimePickerDialog(this, style, timeSetListener, hour, minute, true);
-    }
-
-    public void openHourPicker(View view) {
-        mTimePickerDialog.show();
-    }
-
     private void setSpinnerAdapter() {
-        spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.room_array, android.R.layout.simple_spinner_item);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.room_array, R.layout.simple_spinner_item);
+        spinnerAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
         mRoomSpinner.setAdapter(spinnerAdapter);
+
+        spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.hour_array, R.layout.simple_spinner_item);
+        spinnerAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
+        mHourSpinner.setAdapter(spinnerAdapter);
+
+        spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.minute_array, R.layout.simple_spinner_item);
+        spinnerAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
+        mMinuteSpinner.setAdapter(spinnerAdapter);
+
     }
 
     private void addMember() {
@@ -128,8 +110,8 @@ public class AddReunion extends AppCompatActivity {
             public void onClick(View v) {
                 Reunion reunion = new Reunion(
                         System.currentTimeMillis(),
-                        mTimeBtn.getText().toString(),
                         mRoomSpinner.getSelectedItem().toString(),
+                       mHourSpinner.getSelectedItem().toString() + "H" + mMinuteSpinner.getSelectedItem().toString(),
                         mNameInput.getText().toString(),
                         mMembers
                 );

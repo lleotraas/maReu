@@ -32,15 +32,14 @@ public class ReunionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reunion);
-
         mAddButton = findViewById(R.id.activity_main_fab);
-
         mApiService = DependencyInjector.getReunionApiService();
         mReunions = mApiService.getReunion();
-
         mRecyclerView = findViewById(R.id.list_reunion);
-
-
+        mReunionListAdapter = new ReunionListAdapter(mReunions);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        mRecyclerView.setAdapter(mReunionListAdapter);
+        this.configureToolbar();
 
         mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +70,6 @@ public class ReunionActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         mReunionListAdapter = new ReunionListAdapter(mReunions);
-
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         mRecyclerView.setAdapter(mReunionListAdapter);
         this.configureToolbar();

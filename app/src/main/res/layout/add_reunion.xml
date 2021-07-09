@@ -9,58 +9,86 @@
     android:orientation="vertical"
     >
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/activity_add_reunion_title_txt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:padding="16dp"
-        android:layout_marginVertical="16dp"
-        android:layout_marginHorizontal="24dp"
+        android:padding="@dimen/padding_normal_size"
+        android:layout_marginVertical="@dimen/margin_normal_size"
+        android:layout_marginHorizontal="@dimen/margin_large_size"
         android:hint="Créer une Réunion"
         android:gravity="center"
-        android:textSize="32sp"/>
+        android:textSize="@dimen/text_extralarge_size"/>
 
 
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/activity_add_reunion_time_btn"
-        android:layout_width="match_parent"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/activity_add_reunion_choose_time_txt"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/activity_add_reunion_title_txt"
-        android:padding="16dp"
-        android:layout_marginVertical="16dp"
-        android:layout_marginHorizontal="24dp"
-        android:hint="Choisir une heure"
-        android:textSize="24sp"
-        android:textAlignment="viewStart"
-        android:drawableRight="@drawable/ic_schedule_24"
-        android:onClick="openHourPicker"/>
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingVertical="@dimen/padding_normal_size"
+        android:paddingStart="@dimen/padding_normal_size"
+        android:layout_margin="@dimen/margin_normal_size"
+        android:hint="Heure :"
+        android:textSize="@dimen/text_large_size"
+        android:textAlignment="viewStart"/>
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/activity_add_reunion_hour_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/activity_add_reunion_title_txt"
+        app:layout_constraintStart_toEndOf="@+id/activity_add_reunion_choose_time_txt"
+        android:layout_marginTop="@dimen/margin_normal_size"
+        android:padding="@dimen/padding_normal_size"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/activity_add_reunion_h_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/activity_add_reunion_title_txt"
+        app:layout_constraintStart_toEndOf="@+id/activity_add_reunion_hour_spinner"
+        android:layout_marginTop="@dimen/margin_normal_size"
+        android:paddingVertical="@dimen/padding_normal_size"
+        android:text="H"
+        android:textSize="@dimen/text_large_size"
+        />
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/activity_add_reunion_minute_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/activity_add_reunion_h_txt"
+        app:layout_constraintTop_toBottomOf="@+id/activity_add_reunion_title_txt"
+        android:layout_marginTop="@dimen/margin_normal_size"
+        android:padding="@dimen/padding_normal_size"
+        />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/activity_add_reunion_room_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_normal_size"
+        android:layout_margin="@dimen/margin_normal_size"
         android:text="Salle de réunion"
-        android:paddingVertical="16dp"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@id/activity_add_reunion_time_btn"
-        app:layout_constraintTop_toBottomOf="@id/activity_add_reunion_time_btn" />
+        android:paddingVertical="@dimen/margin_normal_size"
+        android:textSize="@dimen/text_large_size"
+        app:layout_constraintStart_toStartOf="@id/activity_add_reunion_choose_time_txt"
+        app:layout_constraintTop_toBottomOf="@id/activity_add_reunion_choose_time_txt" />
 
     <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/activity_add_reunion_room_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/activity_add_reunion_time_btn"
+        app:layout_constraintTop_toBottomOf="@id/activity_add_reunion_choose_time_txt"
         app:layout_constraintStart_toEndOf="@id/activity_add_reunion_room_txt"
-        android:padding="24dp"
-        android:layout_marginTop="@dimen/margin_normal_size"
-        android:textSize="24sp"
-        android:spinnerDropDownItemStyle="@style/spinnerDropDownItemStyle"
-        android:spinnerItemStyle="@style/spinnerItemStyle"/>
+        android:padding="@dimen/padding_normal_size"
+        android:layout_marginTop="@dimen/margin_normal_size"/>
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/activity_add_reunion_name_input"
