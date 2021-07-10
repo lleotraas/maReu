@@ -5,8 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragment_reunion_list_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.fragment_reunion_list">
+    android:layout_height="match_parent">
 
    <androidx.recyclerview.widget.RecyclerView
        android:id="@+id/list_reunion"
@@ -15,7 +14,7 @@
        android:layout_marginHorizontal="16dp"
        app:layoutManager="LinearLayoutManager"
        tools:context=".view.ReunionActivity"
-       tools:listitem="@layout/row_list">
+       tools:listitem="@layout/row_reunion_list">
    </androidx.recyclerview.widget.RecyclerView>
 
 </FrameLayout>

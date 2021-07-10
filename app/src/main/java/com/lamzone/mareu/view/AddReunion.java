@@ -3,10 +3,12 @@ package com.lamzone.mareu.view;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -35,6 +37,7 @@ public class AddReunion extends AppCompatActivity {
     private Button mValidateBtn;
     private ArrayAdapter<CharSequence> spinnerAdapter;
     private List<String> mMembers;
+    private int mIndex;
 
     private ReunionApiService mApiService;
 
@@ -53,6 +56,7 @@ public class AddReunion extends AppCompatActivity {
         mAddMemberBtn = findViewById(R.id.activity_add_reunion_members_btn);
         mMemberListTxt = findViewById(R.id.activity_add_reunion_members_list_txt);
         mValidateBtn = findViewById(R.id.activity_add_reunion_validate_btn);
+        mIndex = 0;
 
         mMembers = new ArrayList<>();
         mValidateBtn.setEnabled(false);
@@ -71,6 +75,7 @@ public class AddReunion extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         });
+
         addMember();
         validateReunion();
     }
@@ -96,10 +101,10 @@ public class AddReunion extends AppCompatActivity {
             public void onClick(View v) {
                 mMembers.add(mMemberInput.getText().toString());
                 String member = mMemberListTxt.getText().toString();
-                member += mMemberInput.getText().toString();
+                member += (++mIndex) + "." + mMemberInput.getText().toString();
                 mMemberListTxt.setText(member + "\n");
                 mMemberInput.setText("");
-
+                mMemberListTxt.setMovementMethod(new ScrollingMovementMethod());
             }
         });
     }

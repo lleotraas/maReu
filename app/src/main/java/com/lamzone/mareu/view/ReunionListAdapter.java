@@ -30,7 +30,7 @@ public class ReunionListAdapter extends RecyclerView.Adapter<ReunionViewHolder> 
     @Override
     public ReunionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.row_list, parent, false);
+        View view = layoutInflater.inflate(R.layout.row_reunion_list, parent, false);
         mApiService = DependencyInjector.getReunionApiService();
         return new ReunionViewHolder(view);
     }
