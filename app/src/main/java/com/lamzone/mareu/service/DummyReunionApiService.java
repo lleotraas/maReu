@@ -27,8 +27,13 @@ public class DummyReunionApiService implements ReunionApiService{
     }
 
     @Override
-    public void sorting() {
+    public void sortingByTime() {
+        //TODO
+    }
 
+    @Override
+    public void sortingByRoom() {
+        //TODO
     }
 
     @Override
