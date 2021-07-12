@@ -9,15 +9,17 @@ import java.util.List;
  * Created by lleotraas on 04.
  */
 public class Reunion implements Parcelable {
-    private long mId;
-    private String mTime;
-    private String mRoom;
-    private String mName;
-    private List<String>mMembers;
+    private final long mId;
+    private final String mHour;
+    private final String mMinute;
+    private final String mRoom;
+    private final String mName;
+    private final List<String>mMembers;
 
-    public Reunion(long id, String room, String time, String name, List<String> members) {
+    public Reunion(long id, String hour, String minute, String room, String name, List<String> members) {
         mId = id;
-        mTime = time;
+        mHour = hour;
+        mMinute = minute;
         mRoom = room;
         mName = name;
         mMembers = members;
@@ -25,7 +27,8 @@ public class Reunion implements Parcelable {
 
     protected Reunion(Parcel in) {
         mId = in.readLong();
-        mTime = in.readString();
+        mHour = in.readString();
+        mMinute = in.readString();
         mRoom = in.readString();
         mName = in.readString();
         mMembers = in.createStringArrayList();
@@ -47,9 +50,11 @@ public class Reunion implements Parcelable {
         return mId;
     }
 
-    public String getTime() {
-        return mTime;
+    public String getHour() {
+        return mHour;
     }
+
+    public String getMinute(){ return mMinute; }
 
     public String getRoom() {
         return mRoom;
@@ -88,7 +93,8 @@ public class Reunion implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(mId);
-        dest.writeString(mTime);
+        dest.writeString(mHour);
+        dest.writeString(mMinute);
         dest.writeString(mRoom);
         dest.writeString(mName);
         dest.writeStringList(mMembers);

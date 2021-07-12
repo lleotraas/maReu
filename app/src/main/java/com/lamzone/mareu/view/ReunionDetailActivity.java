@@ -53,7 +53,7 @@ public class ReunionDetailActivity extends AppCompatActivity {
     private void initDetails() {
         mTitle.setText("Réunion de " + mReunion.getName());
         mRoom.setText(mReunion.getRoom());
-        mTime.setText(mReunion.getTime());
+        mTime.setText(mReunion.getHour() + "H" + mReunion.getMinute());
         mMember.setText(mReunion.toStringDetail());
     }
 }

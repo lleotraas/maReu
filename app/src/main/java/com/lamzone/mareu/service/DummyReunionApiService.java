@@ -2,6 +2,7 @@ package com.lamzone.mareu.service;
 
 import com.lamzone.mareu.model.Reunion;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,13 +28,25 @@ public class DummyReunionApiService implements ReunionApiService{
     }
 
     @Override
-    public void sortingByTime() {
-        //TODO
+    public List<Reunion> sortingByTime(String hour) {
+        List<Reunion> reunions = new ArrayList<>();
+        for (int index = 0;index < mReunions.size();index++){
+            if (mReunions.get(index).getHour().contains(hour)){
+                reunions.add(mReunions.get(index));
+            }
+        }
+        return  reunions;
     }
 
     @Override
-    public void sortingByRoom() {
-        //TODO
+    public List<Reunion> sortingByRoom(String room) {
+        List<Reunion> reunions = new ArrayList<>();
+        for (int index = 0;index < mReunions.size();index++){
+            if (mReunions.get(index).getRoom().contains(room)){
+                reunions.add(mReunions.get(index));
+            }
+        }
+        return reunions;
     }
 
     @Override

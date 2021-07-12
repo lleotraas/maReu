@@ -1,21 +1,19 @@
 package com.lamzone.mareu.view;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.MenuItemCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.lamzone.mareu.R;
@@ -33,10 +31,9 @@ public class ReunionActivity extends AppCompatActivity {
     private List<Reunion> mReunions;
     private ReunionApiService mApiService;
     private FloatingActionButton mAddButton;
-    private MenuItem sortingTime;
-    private LinearLayout mLinearLayout;
-    private EditText mSearchTimeInput;
-    private ImageButton mSearchTimeBtn;
+    private Spinner mSearchTimeInput;
+    private Button mSearchBtn;
+    private ArrayAdapter<CharSequence> mSpinnerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +41,11 @@ public class ReunionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reunion);
         mAddButton = findViewById(R.id.activity_main_fab);
         mSearchTimeInput = findViewById(R.id.menu_activity_Reunion_sorting_input);
+        mSearchBtn = findViewById(R.id.menu_activity_Reunion_sorting_btn);
         mApiService = DependencyInjector.getReunionApiService();
-        mReunions = mApiService.getReunion();
+
         mRecyclerView = findViewById(R.id.list_reunion);
-        mReunionListAdapter = new ReunionListAdapter(mReunions);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        mRecyclerView.setAdapter(mReunionListAdapter);
+
         this.configureToolbar();
 
         mAddButton.setOnClickListener(new View.OnClickListener() {
@@ -75,6 +71,12 @@ public class ReunionActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        setAdapter();
+
+    }
+
+    private void setAdapter() {
+        mReunions = mApiService.getReunion();
         mReunionListAdapter = new ReunionListAdapter(mReunions);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         mRecyclerView.setAdapter(mReunionListAdapter);
@@ -83,21 +85,46 @@ public class ReunionActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        View view = mSearchTimeInput;
+        View inputView = mSearchTimeInput;
             switch (item.getItemId()){
                 case R.id.menu_activity_reunion_sorting_time:
-                    //TODO
-                    mSearchTimeInput.setVisibility(view.VISIBLE);
-                    mSearchTimeInput.setHint("Entrez une heure");
-                    mSearchTimeInput.setHintTextColor(Color.WHITE);
+                    mSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.hour_array, R.layout.simple_spinner_item);
+                    mSpinnerAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
+                    mSearchTimeInput.setAdapter(mSpinnerAdapter);
+                    mSearchTimeInput.setVisibility(inputView.VISIBLE);
+                    mSearchBtn.setVisibility(inputView.VISIBLE);
+                    refreshView();
                     return true;
                 case R.id.menu_activity_Reunion_sorting_room:
-                    //TODO
-                    mSearchTimeInput.setVisibility(view.VISIBLE);
-                    mSearchTimeInput.setHint("Entrez le nom de la salle");
-                    mSearchTimeInput.setHintTextColor(Color.WHITE);
+                    mSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.room_array, R.layout.simple_spinner_item);
+                    mSpinnerAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
+                    mSearchTimeInput.setAdapter(mSpinnerAdapter);
+                    mSearchTimeInput.setVisibility(inputView.VISIBLE);
+                    mSearchBtn.setVisibility(inputView.VISIBLE);
+                    refreshView();
                     return true;
+                case R.id.menu_activity_Reunion_sorting_cancel:
+                    setAdapter();
+                    mSearchTimeInput.setVisibility(inputView.INVISIBLE);
+                    mSearchBtn.setVisibility(inputView.INVISIBLE);
                 default:return super.onOptionsItemSelected(item);
             }
+    }
+
+    private void refreshView() {
+        mSearchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mSpinnerAdapter.getItem(0).equals("A")) {
+                    mReunions = mApiService.sortingByRoom(mSearchTimeInput.getSelectedItem().toString());
+                }else{
+                    mReunions = mApiService.sortingByTime(mSearchTimeInput.getSelectedItem().toString());
+                }
+                mReunionListAdapter = new ReunionListAdapter(mReunions);
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                mRecyclerView.setAdapter(mReunionListAdapter);
+            }
+        });
+
     }
 }

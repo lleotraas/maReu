@@ -19,6 +19,11 @@
                 app:showAsAction="ifRoom"
                 android:icon="@drawable/ic_meeting_room_24">
             </item>
+            <item
+                android:id="@+id/menu_activity_Reunion_sorting_cancel"
+                android:title="Arrêter le tri"
+                app:showAsAction="ifRoom">
+            </item>
         </menu>
     </item>
 </menu>

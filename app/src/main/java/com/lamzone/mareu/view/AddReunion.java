@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -35,7 +34,7 @@ public class AddReunion extends AppCompatActivity {
     private Button mAddMemberBtn;
     private TextView mMemberListTxt;
     private Button mValidateBtn;
-    private ArrayAdapter<CharSequence> spinnerAdapter;
+    private ArrayAdapter<CharSequence> mSpinnerAdapter;
     private List<String> mMembers;
     private int mIndex;
 
@@ -81,17 +80,17 @@ public class AddReunion extends AppCompatActivity {
     }
 
     private void setSpinnerAdapter() {
-        spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.room_array, R.layout.simple_spinner_item);
-        spinnerAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
-        mRoomSpinner.setAdapter(spinnerAdapter);
+        mSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.room_array, R.layout.simple_spinner_item);
+        mSpinnerAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
+        mRoomSpinner.setAdapter(mSpinnerAdapter);
 
-        spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.hour_array, R.layout.simple_spinner_item);
-        spinnerAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
-        mHourSpinner.setAdapter(spinnerAdapter);
+        mSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.hour_array, R.layout.simple_spinner_item);
+        mSpinnerAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
+        mHourSpinner.setAdapter(mSpinnerAdapter);
 
-        spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.minute_array, R.layout.simple_spinner_item);
-        spinnerAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
-        mMinuteSpinner.setAdapter(spinnerAdapter);
+        mSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.minute_array, R.layout.simple_spinner_item);
+        mSpinnerAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
+        mMinuteSpinner.setAdapter(mSpinnerAdapter);
 
     }
 
@@ -115,8 +114,9 @@ public class AddReunion extends AppCompatActivity {
             public void onClick(View v) {
                 Reunion reunion = new Reunion(
                         System.currentTimeMillis(),
+                        mHourSpinner.getSelectedItem().toString(),
+                        mMinuteSpinner.getSelectedItem().toString(),
                         mRoomSpinner.getSelectedItem().toString(),
-                       mHourSpinner.getSelectedItem().toString() + "H" + mMinuteSpinner.getSelectedItem().toString(),
                         mNameInput.getText().toString(),
                         mMembers
                 );
