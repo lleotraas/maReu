@@ -10,7 +10,7 @@
     android:orientation="vertical"
     tools:context=".view.ReunionActivity">
 
-    <include layout="@layout/toolbar"/>
+    <include layout="@layout/toolbar_reunion_activity"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_reunion"

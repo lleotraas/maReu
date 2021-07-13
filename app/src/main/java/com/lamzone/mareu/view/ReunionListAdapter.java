@@ -42,13 +42,11 @@ public class ReunionListAdapter extends RecyclerView.Adapter<ReunionViewHolder> 
         holder.getDelete().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(Reunion.class.getSimpleName(), "onClick: deleted reunion with name : " + mReunions.get(position).getName());
                 mApiService.removeReunion(mReunions.get(position));
+                mReunions.remove(position);
                 notifyDataSetChanged();
-
             }
         });
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
