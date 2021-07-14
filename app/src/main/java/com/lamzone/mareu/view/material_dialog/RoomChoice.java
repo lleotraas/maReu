@@ -36,7 +36,6 @@ public class RoomChoice extends DialogFragment{
     @Override
     public Dialog onCreateDialog( Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
         String[] list = getActivity().getResources().getStringArray(R.array.room_array);
 
         builder.setTitle("Choisissez une salle")
@@ -58,7 +57,6 @@ public class RoomChoice extends DialogFragment{
                         mListener.onNegativeButtonClicked();
                     }
                 });
-
         return builder.create();
     }
 }
