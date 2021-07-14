@@ -1,37 +1,39 @@
-package com.lamzone.mareu.view;
+package com.lamzone.mareu.view.add;
 
 import android.app.TimePickerDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.ScrollingMovementMethod;
-import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.lamzone.mareu.R;
 import com.lamzone.mareu.injector.DependencyInjector;
 import com.lamzone.mareu.model.Reunion;
 import com.lamzone.mareu.service.ReunionApiService;
-import com.lamzone.mareu.view.dialog.RoomChoice;
+import com.lamzone.mareu.view.material_dialog.RoomChoice;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 /**
  * Created by lleotraas on 06.
  */
-public class AddReunion extends AppCompatActivity implements RoomChoice.SingleChoiceListener {
+public class ReunionAddActivity extends AppCompatActivity implements RoomChoice.SingleChoiceListener {
 
     private Button mTimeButton;
     private EditText mNameInput;
@@ -42,7 +44,6 @@ public class AddReunion extends AppCompatActivity implements RoomChoice.SingleCh
     private Button mRoomBtn;
     private List<String> mMembers;
     private int mIndex;
-    private MaterialDialog mMaterialDialog;
 
     private TimePickerDialog mTimePickerDialog;
     private ReunionApiService mApiService;
@@ -50,7 +51,7 @@ public class AddReunion extends AppCompatActivity implements RoomChoice.SingleCh
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_reunion);
+        setContentView(R.layout.activity_reunion_add);
 
         mApiService = DependencyInjector.getReunionApiService();
         initTimePicker();
@@ -87,26 +88,18 @@ public class AddReunion extends AppCompatActivity implements RoomChoice.SingleCh
         validateReunion();
     }
 
-    private void selectRoom() {
-        mRoomBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment singleChoiceDialog = new RoomChoice();
-                singleChoiceDialog.setCancelable(false);
-                singleChoiceDialog.show(getSupportFragmentManager(), "Single Choice Dialog");
-            }
-        });
-    }
-
     private void configureToolbar() {
         Toolbar toolbar = findViewById(R.id.activity_reunion_toolbar);
         setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_back_24);
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_activity_add, menu);
-        return true;
+    public boolean onOptionsItemSelected(MenuItem item) {
+            finish();
+        return super.onOptionsItemSelected(item);
     }
 
     private void initTimePicker() {
@@ -120,7 +113,6 @@ public class AddReunion extends AppCompatActivity implements RoomChoice.SingleCh
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
         mTimePickerDialog = new TimePickerDialog(this, timeSetListener, hour, minute, true);
-
     }
 
     public void openHourPicker(View view){
@@ -141,6 +133,17 @@ public class AddReunion extends AppCompatActivity implements RoomChoice.SingleCh
         });
     }
 
+    private void selectRoom() {
+        mRoomBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment singleChoiceDialog = new RoomChoice();
+                singleChoiceDialog.setCancelable(false);
+                singleChoiceDialog.show(getSupportFragmentManager(), "Single Choice Dialog");
+            }
+        });
+    }
+
     @Override
     public void onPositiveButtonClicked(String[] list, int position) {
         mRoomBtn.setText(list[position]);
@@ -156,7 +159,7 @@ public class AddReunion extends AppCompatActivity implements RoomChoice.SingleCh
             @Override
             public void onClick(View v) {
                 Reunion reunion = new Reunion(
-                        System.currentTimeMillis(),
+                        getImageColor(),
                         ""+mTimeButton.getText().toString().charAt(0) + mTimeButton.getText().toString().charAt(1),
                         ""+mTimeButton.getText().toString().charAt(3) + mTimeButton.getText().toString().charAt(4),
                         mRoomBtn.getText().toString(),
@@ -167,5 +170,12 @@ public class AddReunion extends AppCompatActivity implements RoomChoice.SingleCh
                 finish();
             }
         });
+    }
+
+    private int getImageColor() {
+        Random random = new Random();
+        int color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
+
+        return color;
     }
 }

@@ -21,7 +21,7 @@
             </item>
             <item
                 android:id="@+id/menu_activity_Reunion_sorting_cancel"
-                android:title="Arrêter le tri"
+                android:title="Pas de tri"
                 app:showAsAction="ifRoom">
             </item>
         </menu>

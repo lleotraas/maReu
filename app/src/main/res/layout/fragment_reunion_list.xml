@@ -13,7 +13,7 @@
        android:layout_height="match_parent"
        android:layout_marginHorizontal="16dp"
        app:layoutManager="LinearLayoutManager"
-       tools:context=".view.ReunionActivity"
+       tools:context=".view.meeting.ReunionActivity"
        tools:listitem="@layout/row_reunion_list">
    </androidx.recyclerview.widget.RecyclerView>
 

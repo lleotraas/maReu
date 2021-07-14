@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/item_list_img"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,12 +25,13 @@
         android:id="@+id/item_list_room_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginStart="@dimen/margin_normal_size"
         app:layout_constraintStart_toEndOf="@+id/item_list_img"
         app:layout_constraintTop_toTopOf="@+id/item_list_img"
+        android:layout_marginTop="6dp"
         android:textSize="@dimen/text_normal_size"
         android:textStyle="bold"
+        android:textColor="@color/black"
         android:text="Réunion A" />
 
     <TextView
@@ -42,6 +43,7 @@
         app:layout_constraintStart_toEndOf="@+id/item_list_room_txt"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:textColor="@color/black"
         android:text=" - 14"/>
 
     <TextView
@@ -53,6 +55,7 @@
         app:layout_constraintStart_toEndOf="@+id/item_list_hour_txt"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:textColor="@color/black"
         android:text="H"/>
 
     <TextView
@@ -64,6 +67,7 @@
         app:layout_constraintStart_toEndOf="@+id/item_list_h_txt"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:textColor="@color/black"
         android:text="00 - "/>
 
     <TextView
@@ -75,6 +79,7 @@
         app:layout_constraintStart_toEndOf="@+id/item_list_minute_txt"
         android:textSize="@dimen/text_normal_size"
         android:textStyle="bold"
+        android:textColor="@color/black"
         android:text="Mario"/>
 
     <TextView

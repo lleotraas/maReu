@@ -1,4 +1,4 @@
-package com.lamzone.mareu.view.dialog;
+package com.lamzone.mareu.view.material_dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.lamzone.mareu.R;

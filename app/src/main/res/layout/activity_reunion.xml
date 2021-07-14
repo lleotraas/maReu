@@ -8,9 +8,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".view.ReunionActivity">
+    tools:context=".view.meeting.ReunionActivity">
 
-    <include layout="@layout/toolbar_reunion_activity"/>
+    <include layout="@layout/toolbar"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_reunion"
@@ -21,7 +21,7 @@
         android:layout_marginTop="@dimen/margin_normal_size"
         android:layout_marginHorizontal="@dimen/margin_normal_size"
         app:layoutManager="LinearLayoutManager"
-        tools:context=".view.ReunionActivity"
+        tools:context=".view.meeting.ReunionActivity"
         tools:listitem="@layout/row_reunion_list">
     </androidx.recyclerview.widget.RecyclerView>
 

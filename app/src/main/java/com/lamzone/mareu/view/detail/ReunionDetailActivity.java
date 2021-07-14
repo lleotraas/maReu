@@ -1,9 +1,13 @@
-package com.lamzone.mareu.view;
+package com.lamzone.mareu.view.detail;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,7 +18,6 @@ import com.lamzone.mareu.model.Reunion;
 
 public class ReunionDetailActivity extends AppCompatActivity {
 
-    private FloatingActionButton mReturnFab;
     private TextView mTitle;
     private TextView mTime;
     private TextView mRoom;
@@ -26,13 +29,12 @@ public class ReunionDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reunion_detail);
 
-        mReturnFab = findViewById(R.id.activity_detail_reunion_return_fab);
         mTitle = findViewById(R.id.activity_detail_reunion_title_txt);
         mTime = findViewById(R.id.activity_detail_reunion_time_txt);
         mRoom = findViewById(R.id.activity_detail_reunion_room_letter_txt);
         mMember = findViewById(R.id.activity_detail_reunion_member_list_txt);
 
-
+        this.configureToolbar();
         Intent detailActivity = getIntent();
         if (detailActivity != null){
             mReunion = getIntent().getParcelableExtra("reunion");
@@ -40,14 +42,20 @@ public class ReunionDetailActivity extends AppCompatActivity {
                 initDetails();        
             }
         }
+    }
 
-        mReturnFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+    private void configureToolbar() {
+        Toolbar toolbar = findViewById(R.id.activity_reunion_toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_back_24);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        finish();
+        return super.onOptionsItemSelected(item);
     }
 
     private void initDetails() {

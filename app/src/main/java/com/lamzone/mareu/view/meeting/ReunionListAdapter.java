@@ -1,7 +1,6 @@
-package com.lamzone.mareu.view;
+package com.lamzone.mareu.view.meeting;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,7 @@ import com.lamzone.mareu.R;
 import com.lamzone.mareu.injector.DependencyInjector;
 import com.lamzone.mareu.model.Reunion;
 import com.lamzone.mareu.service.ReunionApiService;
+import com.lamzone.mareu.view.detail.ReunionDetailActivity;
 
 import java.util.List;
 
@@ -43,7 +43,9 @@ public class ReunionListAdapter extends RecyclerView.Adapter<ReunionViewHolder> 
             @Override
             public void onClick(View v) {
                 mApiService.removeReunion(mReunions.get(position));
-                mReunions.remove(position);
+                if (mReunions.size() < mApiService.getReunion().size()) {
+                    mReunions.remove(position);
+                }
                 notifyDataSetChanged();
             }
         });

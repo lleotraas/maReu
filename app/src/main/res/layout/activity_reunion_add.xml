@@ -5,11 +5,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.AddReunion"
+    tools:context=".view.add.ReunionAddActivity"
     android:orientation="vertical">
 
     <include
-        layout="@layout/toolbar_reunion_activity"/>
+        layout="@layout/toolbar"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/activity_add_reunion_choose_time_txt"

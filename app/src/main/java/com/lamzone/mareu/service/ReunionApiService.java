@@ -15,7 +15,7 @@ public interface ReunionApiService {
 
     void addReunion(Reunion reunion);
 
-    List<Reunion> sortingByTime(String hour);
+    List<Reunion> sortingByTime(int hour);
 
     List<Reunion> sortingByRoom(String room);
 

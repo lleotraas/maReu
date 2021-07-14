@@ -9,15 +9,15 @@ import java.util.List;
  * Created by lleotraas on 04.
  */
 public class Reunion implements Parcelable {
-    private final long mId;
+    private final int mColor;
     private final String mHour;
     private final String mMinute;
     private final String mRoom;
     private final String mName;
     private final List<String>mMembers;
 
-    public Reunion(long id, String hour, String minute, String room, String name, List<String> members) {
-        mId = id;
+    public Reunion(int color, String hour, String minute, String room, String name, List<String> members) {
+        mColor = color;
         mHour = hour;
         mMinute = minute;
         mRoom = room;
@@ -26,7 +26,7 @@ public class Reunion implements Parcelable {
     }
 
     protected Reunion(Parcel in) {
-        mId = in.readLong();
+        mColor = in.readInt();
         mHour = in.readString();
         mMinute = in.readString();
         mRoom = in.readString();
@@ -46,8 +46,8 @@ public class Reunion implements Parcelable {
         }
     };
 
-    public long getId() {
-        return mId;
+    public int getColor() {
+        return mColor;
     }
 
     public String getHour() {
@@ -92,7 +92,7 @@ public class Reunion implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(mId);
+        dest.writeInt(mColor);
         dest.writeString(mHour);
         dest.writeString(mMinute);
         dest.writeString(mRoom);

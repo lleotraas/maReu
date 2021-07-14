@@ -28,10 +28,11 @@ public class DummyReunionApiService implements ReunionApiService{
     }
 
     @Override
-    public List<Reunion> sortingByTime(String hour) {
+    public List<Reunion> sortingByTime(int hour) {
         List<Reunion> reunions = new ArrayList<>();
+        String hourString = String.format("%02d", hour);
         for (int index = 0;index < mReunions.size();index++){
-            if (mReunions.get(index).getHour().contains(hour)){
+            if (mReunions.get(index).getHour().contains(hourString)){
                 reunions.add(mReunions.get(index));
             }
         }
