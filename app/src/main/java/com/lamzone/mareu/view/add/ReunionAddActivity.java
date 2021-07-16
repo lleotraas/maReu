@@ -23,7 +23,6 @@ import com.lamzone.mareu.injector.DependencyInjector;
 import com.lamzone.mareu.model.Reunion;
 import com.lamzone.mareu.service.ReunionApiService;
 import com.lamzone.mareu.view.material_dialog.RoomChoice;
-import com.lamzone.mareu.view.time_picker_dialog.MeetingTimePickerDialog;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -68,25 +67,32 @@ public class ReunionAddActivity extends AppCompatActivity implements RoomChoice.
 
         mMembers = new ArrayList<>();
         mValidateBtn.setEnabled(false);
+        mAddMemberBtn.setEnabled(false);
 
-        mNameInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+        this.configureToolbar();
 
+        mValidateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mValidateBtn.setEnabled(s.length() > 0);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
+            public void onClick(View v) {
+                addNewReunion();
             }
         });
-        this.configureToolbar();
         addMember();
         selectRoom();
-        validateReunion();
+        enableButtons();
+    }
+
+    private void addNewReunion() {
+        Reunion reunion = new Reunion(
+                getImageColor(),
+                ""+mTimeButton.getText().toString().charAt(0) + mTimeButton.getText().toString().charAt(1),
+                ""+mTimeButton.getText().toString().charAt(3) + mTimeButton.getText().toString().charAt(4),
+                mRoomBtn.getText().toString(),
+                mNameInput.getText().toString(),
+                mMembers
+        );
+        mApiService.addReunion(reunion);
+        finish();
     }
 
     private void configureToolbar() {
@@ -107,7 +113,8 @@ public class ReunionAddActivity extends AppCompatActivity implements RoomChoice.
         TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hour, int minute) {
-                mTimeButton.setText(hour + ":" + minute);
+                String time = mApiService.makeHourString(hour, minute);
+                mTimeButton.setText(time);
             }
         };
         Calendar calendar = Calendar.getInstance(Locale.FRANCE);
@@ -130,6 +137,7 @@ public class ReunionAddActivity extends AppCompatActivity implements RoomChoice.
                 mMemberListTxt.setText(member + "\n");
                 mMemberInput.setText("");
                 mMemberListTxt.setMovementMethod(new ScrollingMovementMethod());
+                mAddMemberBtn.setEnabled(false);
             }
         });
     }
@@ -155,20 +163,35 @@ public class ReunionAddActivity extends AppCompatActivity implements RoomChoice.
 
     }
 
-    private void validateReunion() {
-        mValidateBtn.setOnClickListener(new View.OnClickListener() {
+    private void enableButtons() {
+        mNameInput.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                Reunion reunion = new Reunion(
-                        getImageColor(),
-                        ""+mTimeButton.getText().toString().charAt(0) + mTimeButton.getText().toString().charAt(1),
-                        ""+mTimeButton.getText().toString().charAt(3) + mTimeButton.getText().toString().charAt(4),
-                        mRoomBtn.getText().toString(),
-                        mNameInput.getText().toString(),
-                        mMembers
-                );
-                mApiService.addReunion(reunion);
-                finish();
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mValidateBtn.setEnabled(s.length() > 0);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+        mMemberInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mAddMemberBtn.setEnabled(s.length() != 0);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
     }

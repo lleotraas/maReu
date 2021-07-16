@@ -4,13 +4,15 @@ import com.lamzone.mareu.model.Reunion;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * Created by lleotraas on 04.
  */
 public abstract class DummyReunion {
-    public static List<Reunion>DUMMY_REUNION = Arrays.asList(
+    public static List<Reunion>DUMMY_REUNION = new ArrayList<Reunion>();
+//    Arrays.asList(
 //            new Reunion(-5123471,"19","30","J","luigi",Arrays.asList("luigi@lamzone.com", "Peach@lamzone.com", "mario@lamzone.com", "Toad@lamzonne.com")),
 //            new Reunion(-27562457, "08", "15", "I", "Peach", Arrays.asList("luigi@lamzone.com", "peach@lamzone.com", "mario@lamzone.com", "toad@lamzone.com")),
 //            new Reunion(-8453213,"18", "45", "H", "D.K.", Arrays.asList("luigi@lamzone.com", "peach@lamzone.com", "mario@lamzone.com", "toad@lamzone.com")),
@@ -31,7 +33,7 @@ public abstract class DummyReunion {
 //            new Reunion(-98713718,"18", "30", "C", "Link", Arrays.asList("luigi@lamzone.com", "peach@lamzone.com", "mario@lamzone.com", "toad@lamzone.com")),
 //            new Reunion(-5646319,"08", "45", "B", "Zelda", Arrays.asList("luigi@lamzone.com", "peach@lamzone.com", "mario@lamzone.com", "toad@lamzone.com")),
 //            new Reunion(-98772320,"19", "00", "A","Pikachu", Arrays.asList("luigi@lamzone.com", "peach@lamzone.com", "mario@lamzone.com", "toad@lamzone.com"))
-    );
+//    );
 
     static List<Reunion> generateReunion(){ return new ArrayList<>(DUMMY_REUNION);}
 }

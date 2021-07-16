@@ -43,9 +43,6 @@ public class ReunionListAdapter extends RecyclerView.Adapter<ReunionViewHolder> 
             @Override
             public void onClick(View v) {
                 mApiService.removeReunion(mReunions.get(position));
-                if (mReunions.size() < mApiService.getReunion().size()) {
-                    mReunions.remove(position);
-                }
                 notifyDataSetChanged();
             }
         });

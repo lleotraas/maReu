@@ -3,6 +3,7 @@ package com.lamzone.mareu.view.meeting;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +26,8 @@ import com.lamzone.mareu.view.material_dialog.RoomChoice;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+
+import static android.content.ContentValues.TAG;
 
 public class ReunionActivity extends AppCompatActivity implements RoomChoice.SingleChoiceListener {
 
@@ -69,11 +72,18 @@ public class ReunionActivity extends AppCompatActivity implements RoomChoice.Sin
     @Override
     protected void onStart() {
         super.onStart();
+
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        Log.d(TAG, "onPostResume: resumed");
         setAdapter();
     }
 
     private void setAdapter() {
-        mReunionListAdapter = new ReunionListAdapter(mReunions);
+        mReunionListAdapter = new ReunionListAdapter(mApiService.getReunion());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         mRecyclerView.setAdapter(mReunionListAdapter);
     }
@@ -120,7 +130,5 @@ public class ReunionActivity extends AppCompatActivity implements RoomChoice.Sin
     }
 
     @Override
-    public void onNegativeButtonClicked() {
-
-    }
+    public void onNegativeButtonClicked() {}
 }
