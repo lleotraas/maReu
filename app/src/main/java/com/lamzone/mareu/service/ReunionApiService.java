@@ -20,4 +20,6 @@ public interface ReunionApiService {
     List<Reunion> sortingByRoom(String room);
 
     String makeHourString(int hour, int minute);
+
+    int getImageColor();
 }

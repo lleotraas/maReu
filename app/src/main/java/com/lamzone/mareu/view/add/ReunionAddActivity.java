@@ -1,7 +1,6 @@
 package com.lamzone.mareu.view.add;
 
 import android.app.TimePickerDialog;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -23,17 +22,15 @@ import com.lamzone.mareu.injector.DependencyInjector;
 import com.lamzone.mareu.model.Reunion;
 import com.lamzone.mareu.service.ReunionApiService;
 import com.lamzone.mareu.view.material_dialog.RoomChoice;
+import com.lamzone.mareu.view.timePicker_dialog.TimeChoice;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
-import java.util.Random;
 
 /**
  * Created by lleotraas on 06.
  */
-public class ReunionAddActivity extends AppCompatActivity implements RoomChoice.SingleChoiceListener {
+public class ReunionAddActivity extends AppCompatActivity implements RoomChoice.SingleChoiceListener, TimePickerDialog.OnTimeSetListener {
 
     private Button mTimeButton;
     private EditText mNameInput;
@@ -45,7 +42,6 @@ public class ReunionAddActivity extends AppCompatActivity implements RoomChoice.
     private List<String> mMembers;
     private int mIndex;
 
-    private TimePickerDialog mTimePickerDialog;
     private ReunionApiService mApiService;
 
     @Override
@@ -54,7 +50,6 @@ public class ReunionAddActivity extends AppCompatActivity implements RoomChoice.
         setContentView(R.layout.activity_reunion_add);
 
         mApiService = DependencyInjector.getReunionApiService();
-        initTimePicker();
 
         mNameInput = findViewById(R.id.activity_add_reunion_name_input);
         mMemberInput = findViewById(R.id.activity_add_reunion_members_input);
@@ -77,6 +72,14 @@ public class ReunionAddActivity extends AppCompatActivity implements RoomChoice.
                 addNewReunion();
             }
         });
+
+        mTimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TimeChoice timePicker = new TimeChoice();
+                timePicker.show(getSupportFragmentManager(), "time picker");
+            }
+        });
         addMember();
         selectRoom();
         enableButtons();
@@ -84,7 +87,7 @@ public class ReunionAddActivity extends AppCompatActivity implements RoomChoice.
 
     private void addNewReunion() {
         Reunion reunion = new Reunion(
-                getImageColor(),
+                mApiService.getImageColor(),
                 ""+mTimeButton.getText().toString().charAt(0) + mTimeButton.getText().toString().charAt(1),
                 ""+mTimeButton.getText().toString().charAt(3) + mTimeButton.getText().toString().charAt(4),
                 mRoomBtn.getText().toString(),
@@ -107,24 +110,6 @@ public class ReunionAddActivity extends AppCompatActivity implements RoomChoice.
     public boolean onOptionsItemSelected(MenuItem item) {
             finish();
         return super.onOptionsItemSelected(item);
-    }
-
-    private void initTimePicker() {
-        TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hour, int minute) {
-                String time = mApiService.makeHourString(hour, minute);
-                mTimeButton.setText(time);
-            }
-        };
-        Calendar calendar = Calendar.getInstance(Locale.FRANCE);
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        int minute = calendar.get(Calendar.MINUTE);
-        mTimePickerDialog = new TimePickerDialog(this, timeSetListener, hour, minute, true);
-    }
-
-    public void openHourPicker(View view){
-        mTimePickerDialog.show();
     }
 
     private void addMember() {
@@ -159,9 +144,7 @@ public class ReunionAddActivity extends AppCompatActivity implements RoomChoice.
     }
 
     @Override
-    public void onNegativeButtonClicked() {
-
-    }
+    public void onNegativeButtonClicked() {}
 
     private void enableButtons() {
         mNameInput.addTextChangedListener(new TextWatcher() {
@@ -196,10 +179,8 @@ public class ReunionAddActivity extends AppCompatActivity implements RoomChoice.
         });
     }
 
-    private int getImageColor() {
-        Random random = new Random();
-        int color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
-
-        return color;
+    @Override
+    public void onTimeSet(TimePicker view, int hour, int minute) {
+        mTimeButton.setText(mApiService.makeHourString(hour, minute));
     }
 }

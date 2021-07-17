@@ -1,5 +1,8 @@
 package com.lamzone.mareu;
 
+import android.view.View;
+
+import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
@@ -53,17 +56,16 @@ public class ReunionActivityTest {
         assertThat(mActivity, notNullValue());
         service = DependencyInjector.getReunionApiService();
         assertThat(service, notNullValue());
-
-//        Reunion reunionTest = new Reunion(-12345678, "14", "15", "B", "reunionTest", Arrays.asList("un@lamzone.com", "deux@lamzone.com", "trois@lamzone.com", "quatre@lamzone.com"));
+        Reunion reunionTest = new Reunion(-12345678, "14", "15", "B", "reunionTest", Arrays.asList("un@lamzone.com", "deux@lamzone.com", "trois@lamzone.com", "quatre@lamzone.com"));
         Reunion reunionTest1 = new Reunion(-12345678, "10", "30", "J", "reunionTest", Arrays.asList("un@lamzone.com", "deux@lamzone.com", "trois@lamzone.com", "quatre@lamzone.com"));
-//        Reunion reunionTest2 = new Reunion(-12345678, "14", "45", "B", "reunionTest", Arrays.asList("un@lamzone.com", "deux@lamzone.com", "trois@lamzone.com", "quatre@lamzone.com"));
-//        Reunion reunionTest3 = new Reunion(-12345678, "10", "00", "J", "reunionTest", Arrays.asList("un@lamzone.com", "deux@lamzone.com", "trois@lamzone.com", "quatre@lamzone.com"));
-//        Reunion reunionTest4 = new Reunion(-12345678, "14", "15", "B", "reunionTest", Arrays.asList("un@lamzone.com", "deux@lamzone.com", "trois@lamzone.com", "quatre@lamzone.com"));
-//        listTest.add(reunionTest);
+        Reunion reunionTest2 = new Reunion(-12345678, "14", "45", "B", "reunionTest", Arrays.asList("un@lamzone.com", "deux@lamzone.com", "trois@lamzone.com", "quatre@lamzone.com"));
+        Reunion reunionTest3 = new Reunion(-12345678, "10", "00", "J", "reunionTest", Arrays.asList("un@lamzone.com", "deux@lamzone.com", "trois@lamzone.com", "quatre@lamzone.com"));
+        Reunion reunionTest4 = new Reunion(-12345678, "14", "15", "B", "reunionTest", Arrays.asList("un@lamzone.com", "deux@lamzone.com", "trois@lamzone.com", "quatre@lamzone.com"));
+        service.getReunion().add(reunionTest);
         service.getReunion().add(reunionTest1);
-//        listTest.add(reunionTest2);
-//        listTest.add(reunionTest3);
-//        listTest.add(reunionTest4);
+        service.getReunion().add(reunionTest2);
+        service.getReunion().add(reunionTest3);
+        service.getReunion().add(reunionTest4);
     }
     @After
     public void finish() {
@@ -75,7 +77,16 @@ public class ReunionActivityTest {
 
     @Test
     public void ReunionActivity_shouldRemoveItem(){
-
+        onView(withId(R.id.menu_activity_Reunion_sorting))
+                .perform(click());
+        onView(withText("Pas de tri"))
+                .perform(click());
+        onView(withId(R.id.list_reunion))
+                .check(matches(hasChildCount(1)));
+        onView(withId(R.id.item_list_delete_btn))
+                .perform(click());
+        onView(withId(R.id.list_reunion))
+                .check(matches(hasChildCount(0)));
     }
 
     @Test
@@ -108,5 +119,19 @@ public class ReunionActivityTest {
                 .perform(click());
         onView(withId(R.id.list_reunion))
                 .check(matches(hasChildCount(2)));
+    }
+
+    @Test
+    public void ReunionDetailActivity_activityLaunched(){
+        onView(withId(R.id.menu_activity_Reunion_sorting))
+                .perform(click());
+        onView(withText("Pas de tri"))
+                .perform(click());
+        onView(withId(R.id.list_reunion))
+                .check(matches(hasChildCount(1)));
+        onView(withId(R.id.list_reunion))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        onView(withId(R.id.activity_detail_reunion_member_list_txt));
+
     }
 }

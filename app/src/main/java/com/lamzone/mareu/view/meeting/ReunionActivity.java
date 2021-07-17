@@ -22,21 +22,18 @@ import com.lamzone.mareu.model.Reunion;
 import com.lamzone.mareu.service.ReunionApiService;
 import com.lamzone.mareu.view.add.ReunionAddActivity;
 import com.lamzone.mareu.view.material_dialog.RoomChoice;
+import com.lamzone.mareu.view.timePicker_dialog.TimeChoice;
 
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 import static android.content.ContentValues.TAG;
 
-public class ReunionActivity extends AppCompatActivity implements RoomChoice.SingleChoiceListener {
+public class ReunionActivity extends AppCompatActivity implements RoomChoice.SingleChoiceListener, TimePickerDialog.OnTimeSetListener {
 
     private RecyclerView mRecyclerView;
     private ReunionListAdapter mReunionListAdapter;
-    private List<Reunion> mReunions;
     private ReunionApiService mApiService;
     private FloatingActionButton mAddButton;
-    private TimePickerDialog mTimePickerDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +42,7 @@ public class ReunionActivity extends AppCompatActivity implements RoomChoice.Sin
         mAddButton = findViewById(R.id.activity_main_fab);
         mRecyclerView = findViewById(R.id.list_reunion);
         mApiService = DependencyInjector.getReunionApiService();
-        mReunions = mApiService.getReunion();
         this.configureToolbar();
-        initTimePicker();
 
         mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,11 +74,11 @@ public class ReunionActivity extends AppCompatActivity implements RoomChoice.Sin
     protected void onPostResume() {
         super.onPostResume();
         Log.d(TAG, "onPostResume: resumed");
-        setAdapter();
+        setAdapter(mApiService.getReunion());
     }
 
-    private void setAdapter() {
-        mReunionListAdapter = new ReunionListAdapter(mApiService.getReunion());
+    private void setAdapter(List<Reunion> reunion) {
+        mReunionListAdapter = new ReunionListAdapter(reunion);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         mRecyclerView.setAdapter(mReunionListAdapter);
     }
@@ -92,7 +87,8 @@ public class ReunionActivity extends AppCompatActivity implements RoomChoice.Sin
     public boolean onOptionsItemSelected(MenuItem item) {
             switch (item.getItemId()){
                 case R.id.menu_activity_reunion_sorting_time:
-                    mTimePickerDialog.show();
+                    TimeChoice timePicker = new TimeChoice();
+                    timePicker.show(getSupportFragmentManager(), "time picker");
                     return true;
 
                 case R.id.menu_activity_Reunion_sorting_room:
@@ -102,33 +98,23 @@ public class ReunionActivity extends AppCompatActivity implements RoomChoice.Sin
                     return true;
 
                 case R.id.menu_activity_Reunion_sorting_cancel:
-                    mReunions = mApiService.getReunion();
-                    setAdapter();
+                    setAdapter(mApiService.getReunion());
+                    return true;
 
                 default:return super.onOptionsItemSelected(item);
             }
     }
 
-    private void initTimePicker() {
-        TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hour, int minute) {
-                mReunions = mApiService.sortingByTime(hour);
-                setAdapter();
-            }
-        };
-        Calendar calendar = Calendar.getInstance(Locale.FRANCE);
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        int minute = calendar.get(Calendar.MINUTE);
-        mTimePickerDialog = new TimePickerDialog(this, timeSetListener, hour, minute, true);
-    }
-
     @Override
     public void onPositiveButtonClicked(String[] list, int position) {
-        mReunions = mApiService.sortingByRoom(list[position]);
-        setAdapter();
+        setAdapter(mApiService.sortingByRoom(list[position]));
     }
 
     @Override
     public void onNegativeButtonClicked() {}
+
+    @Override
+    public void onTimeSet(TimePicker view, int hour, int minute) {
+        setAdapter(mApiService.sortingByTime(hour));
+    }
 }
