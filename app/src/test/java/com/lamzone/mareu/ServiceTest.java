@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-public class ExampleUnitTest {
+public class ServiceTest {
     ReunionApiService service;
 
     @Before
@@ -45,11 +45,11 @@ public class ExampleUnitTest {
     @Test
     public void getReunionListWithSuccess() {
         //ARRANGE
-
+        int listSizeExpected = 5;
         //ACT
 
         //ASSERT
-        assertEquals(5, service.getReunion().size());
+        assertEquals(listSizeExpected, service.getReunion().size());
        // assertEquals();
     }
 
@@ -66,21 +66,21 @@ public class ExampleUnitTest {
     @Test
     public void sortingByTimeWithSuccess(){
         //ARRANGE
-
+        int hourExpected = 3;
         //ACT
         List<Reunion> sortingExpected = service.sortingByTime(14);
         //ASSERT
-        assertEquals(3, sortingExpected.size());
+        assertEquals(hourExpected, sortingExpected.size());
     }
 
     @Test
     public void sortingByRoomWithSuccess(){
         //ARRANGE
-
+        int roomNumberExpected = 2;
         //ACT
         List<Reunion> sortingExpected = service.sortingByRoom("J");
         //ASSERT
-        assertEquals(2, sortingExpected.size());
+        assertEquals(roomNumberExpected, sortingExpected.size());
     }
 
     @Test
