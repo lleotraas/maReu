@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/item_list_img"
+        android:layout_width="@dimen/img_normal_width_size"
+        android:layout_height="@dimen/img_normal_height_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="@dimen/margin_normal_size"
+        android:src="@drawable/ic_circle_24"
+        app:tint="@android:color/holo_blue_light" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/item_list_room_txt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_normal_size"
+        app:layout_constraintStart_toEndOf="@+id/item_list_img"
+        app:layout_constraintTop_toTopOf="@+id/item_list_img"
+        app:layout_constraintEnd_toStartOf="@+id/item_list_delete_btn"
+        app:layout_constraintHorizontal_bias="0"
+        android:layout_marginTop="@dimen/margin_small_size"
+        android:textSize="@dimen/text_normal_size"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text="Réunion A - 14H00 - MARIO"
+        android:ellipsize="end"
+        android:singleLine="true"/>
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/item_list_members_txt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/item_list_img"
+        app:layout_constraintEnd_toStartOf="@id/item_list_delete_btn"
+        app:layout_constraintTop_toBottomOf="@+id/item_list_room_txt"
+        android:layout_marginStart="@dimen/margin_normal_size"
+        android:textSize="@dimen/text_small_size"
+        android:ellipsize="end"
+        android:text="maxime@lamzone.com,alex@lamzone.com,philippe@lamzon.com"
+        android:singleLine="true" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/item_list_delete_btn"
+        android:layout_width="@dimen/img_delete_width"
+        android:layout_height="@dimen/img_delete_height"
+        app:layout_constraintBottom_toBottomOf="@+id/item_list_img"
+        app:layout_constraintTop_toTopOf="@+id/item_list_img"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/margin_normal_size"
+        android:src="@drawable/baseline_delete_white_24"
+        android:background="@android:color/transparent"
+        app:tint="#656060"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_small_size">12sp</dimen>
+    <dimen name="text_normal_size">14sp</dimen>
+    <dimen name="text_large_size">20sp</dimen>
+    <dimen name="text_extralarge_size">26sp</dimen>
+
+    <dimen name="line_spacing_normal">6dp</dimen>
+
+    <dimen name="margin_small_size">6dp</dimen>
+    <dimen name="margin_normal_size">12dp</dimen>
+    <dimen name="margin_large_size">20dp</dimen>
+    <dimen name="margin_extra_large_size">24dp</dimen>
+    <dimen name="margin_xxlarge_size">28dp</dimen>
+
+    <dimen name="padding_small_size">20dp</dimen>
+    <dimen name="padding_normal_size">20dp</dimen>
+    <dimen name="padding_large_size">28dp</dimen>
+
+    <dimen name="layout_padding_normal_size">22dp</dimen>
+
+    <dimen name="img_delete_width">40dp</dimen>
+    <dimen name="img_delete_height">@dimen/img_delete_width</dimen>
+    <dimen name="img_normal_width_size">50dp</dimen>
+    <dimen name="img_normal_height_size">@dimen/img_normal_width_size</dimen>
+
+    <dimen name="scrollBar_normal_size">16dp</dimen>
+
+</resources>

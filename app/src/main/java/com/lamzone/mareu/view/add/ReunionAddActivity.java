@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -19,8 +20,8 @@ import androidx.fragment.app.DialogFragment;
 
 import com.lamzone.mareu.R;
 import com.lamzone.mareu.injector.DependencyInjector;
-import com.lamzone.mareu.model.Reunion;
-import com.lamzone.mareu.service.ReunionApiService;
+import com.lamzone.mareu.model.Meeting;
+import com.lamzone.mareu.service.MeetingApiService;
 import com.lamzone.mareu.view.material_dialog.RoomChoice;
 import com.lamzone.mareu.view.timePicker_dialog.TimeChoice;
 
@@ -32,32 +33,33 @@ import java.util.List;
  */
 public class ReunionAddActivity extends AppCompatActivity implements RoomChoice.SingleChoiceListener, TimePickerDialog.OnTimeSetListener {
 
-    private Button mTimeButton;
+
+    private EditText mHourInput;
+    private EditText mRoomChoiceInput;
     private EditText mNameInput;
     private EditText mMemberInput;
-    private Button mAddMemberBtn;
+    private ImageButton mAddMemberBtn;
     private TextView mMemberListTxt;
     private Button mValidateBtn;
-    private Button mRoomBtn;
     private List<String> mMembers;
     private int mIndex;
 
-    private ReunionApiService mApiService;
+    private MeetingApiService mApiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reunion_add);
+        setContentView(R.layout.activity_meeting_add);
 
         mApiService = DependencyInjector.getReunionApiService();
 
-        mNameInput = findViewById(R.id.activity_add_reunion_name_input);
-        mMemberInput = findViewById(R.id.activity_add_reunion_members_input);
-        mAddMemberBtn = findViewById(R.id.activity_add_reunion_members_btn);
-        mMemberListTxt = findViewById(R.id.activity_add_reunion_members_list_txt);
-        mValidateBtn = findViewById(R.id.activity_add_reunion_validate_btn);
-        mTimeButton = findViewById(R.id.activity_add_reunion_hour_btn);
-        mRoomBtn = findViewById(R.id.activity_add_reunion_room_btn);
+        mNameInput = findViewById(R.id.activity_add_meeting_name_input);
+        mMemberInput = findViewById(R.id.activity_add_meeting_members_input);
+        mAddMemberBtn = findViewById(R.id.activity_add_meeting_members_btn);
+        mMemberListTxt = findViewById(R.id.activity_add_meeting_members_list_txt);
+        mValidateBtn = findViewById(R.id.activity_add_meeting_validate_btn);
+        mHourInput = findViewById(R.id.activity_add_meeting_choose_time_input);
+        mRoomChoiceInput = findViewById(R.id.activity_add_meeting_room_input);
         mIndex = 0;
 
         mMembers = new ArrayList<>();
@@ -73,33 +75,12 @@ public class ReunionAddActivity extends AppCompatActivity implements RoomChoice.
             }
         });
 
-        mTimeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TimeChoice timePicker = new TimeChoice();
-                timePicker.show(getSupportFragmentManager(), "time picker");
-            }
-        });
         addMember();
-        selectRoom();
         enableButtons();
     }
 
-    private void addNewReunion() {
-        Reunion reunion = new Reunion(
-                mApiService.getImageColor(),
-                ""+mTimeButton.getText().toString().charAt(0) + mTimeButton.getText().toString().charAt(1),
-                ""+mTimeButton.getText().toString().charAt(3) + mTimeButton.getText().toString().charAt(4),
-                mRoomBtn.getText().toString(),
-                mNameInput.getText().toString(),
-                mMembers
-        );
-        mApiService.addReunion(reunion);
-        finish();
-    }
-
     private void configureToolbar() {
-        Toolbar toolbar = findViewById(R.id.activity_reunion_toolbar);
+        Toolbar toolbar = findViewById(R.id.activity_meeting_toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_back_24);
@@ -108,8 +89,31 @@ public class ReunionAddActivity extends AppCompatActivity implements RoomChoice.
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-            finish();
+        finish();
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setTimeInput(View v){
+        TimeChoice timePicker = new TimeChoice();
+        timePicker.show(getSupportFragmentManager(), "time picker");
+    }
+
+    @Override
+    public void onTimeSet(TimePicker view, int hour, int minute) {
+        mHourInput.setText("Heure : " + mApiService.makeHourString(hour, minute));
+        enableValidateBtn();
+    }
+
+    public void setRoomInput(View v){
+        DialogFragment singleChoiceDialog = new RoomChoice();
+                singleChoiceDialog.setCancelable(false);
+                singleChoiceDialog.show(getSupportFragmentManager(), "Single Choice Dialog");
+    }
+
+    @Override
+    public void onPositiveButtonClicked(String[] list, int position) {
+        mRoomChoiceInput.setText("Salle " + list[position]);
+        enableValidateBtn();
     }
 
     private void addMember() {
@@ -119,28 +123,25 @@ public class ReunionAddActivity extends AppCompatActivity implements RoomChoice.
                 mMembers.add(mMemberInput.getText().toString());
                 String member = mMemberListTxt.getText().toString();
                 member += (++mIndex) + "." + mMemberInput.getText().toString();
-                mMemberListTxt.setText(member + "\n");
+                mMemberListTxt.setText(String.format("%s\n", member));
                 mMemberInput.setText("");
-                mMemberListTxt.setMovementMethod(new ScrollingMovementMethod());
                 mAddMemberBtn.setEnabled(false);
+                enableValidateBtn();
             }
         });
     }
 
-    private void selectRoom() {
-        mRoomBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment singleChoiceDialog = new RoomChoice();
-                singleChoiceDialog.setCancelable(false);
-                singleChoiceDialog.show(getSupportFragmentManager(), "Single Choice Dialog");
-            }
-        });
-    }
-
-    @Override
-    public void onPositiveButtonClicked(String[] list, int position) {
-        mRoomBtn.setText(list[position]);
+    private void addNewReunion() {
+        Meeting meeting = new Meeting(
+                mApiService.getImageColor(),
+                 String.format("%s%s", mHourInput.getText().toString().charAt(8), mHourInput.getText().toString().charAt(9)),
+                String.format("%s%s", mHourInput.getText().toString().charAt(11), mHourInput.getText().toString().charAt(12)),
+                String.format("%s", mRoomChoiceInput.getText().charAt(mRoomChoiceInput.getText().length()-1))  ,
+                mNameInput.getText().toString(),
+                mMembers
+        );
+        mApiService.addMeeting(meeting);
+        finish();
     }
 
     @Override
@@ -151,12 +152,10 @@ public class ReunionAddActivity extends AppCompatActivity implements RoomChoice.
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mValidateBtn.setEnabled(s.length() > 0);
+                    enableValidateBtn();
             }
-
             @Override
             public void afterTextChanged(Editable s) {
             }
@@ -164,23 +163,20 @@ public class ReunionAddActivity extends AppCompatActivity implements RoomChoice.
         mMemberInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mAddMemberBtn.setEnabled(s.length() != 0);
             }
-
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
     }
 
-    @Override
-    public void onTimeSet(TimePicker view, int hour, int minute) {
-        mTimeButton.setText(mApiService.makeHourString(hour, minute));
+    private void enableValidateBtn(){
+        mValidateBtn.setEnabled(mNameInput.getText().length() != 0 && mHourInput.getText().toString() != "" && mRoomChoiceInput.getText().toString() != "" && mMembers.size() != 0);
     }
+
+
 }

@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="reunion">"Réunion "</string>
+    <string name="meeting">"Réunion "</string>
+    <string name="meeting_of">Réunion de </string>
+    <string name="choose">\"Choisir\"</string>
 </resources>

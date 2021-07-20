@@ -1,6 +1,5 @@
 package com.lamzone.mareu.view.detail;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -8,44 +7,40 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.lamzone.mareu.R;
-import com.lamzone.mareu.model.Reunion;
+import com.lamzone.mareu.model.Meeting;
 
 public class ReunionDetailActivity extends AppCompatActivity {
 
     private TextView mTitle;
-    private TextView mTime;
-    private TextView mRoom;
     private TextView mMember;
-    private Reunion mReunion;
+    private TextView mMeetingInformation;
+    private Meeting mMeeting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reunion_detail);
+        setContentView(R.layout.activity_meeting_detail);
 
-        mTitle = findViewById(R.id.activity_detail_reunion_title_txt);
-        mTime = findViewById(R.id.activity_detail_reunion_time_txt);
-        mRoom = findViewById(R.id.activity_detail_reunion_room_letter_txt);
-        mMember = findViewById(R.id.activity_detail_reunion_member_list_txt);
+        mTitle = findViewById(R.id.activity_detail_meeting_title_txt);
+        mMeetingInformation = findViewById(R.id.activity_detail_meeting_room_txt);
+        mMember = findViewById(R.id.activity_detail_meeting_member_list_txt);
 
         this.configureToolbar();
         Intent detailActivity = getIntent();
         if (detailActivity != null){
-            mReunion = getIntent().getParcelableExtra("reunion");
-            if (mReunion != null){
+            mMeeting = getIntent().getParcelableExtra("reunion");
+            if (mMeeting != null){
                 initDetails();        
             }
         }
     }
 
     private void configureToolbar() {
-        Toolbar toolbar = findViewById(R.id.activity_reunion_toolbar);
+        Toolbar toolbar = findViewById(R.id.activity_meeting_toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_back_24);
@@ -59,9 +54,8 @@ public class ReunionDetailActivity extends AppCompatActivity {
     }
 
     private void initDetails() {
-        mTitle.setText("Réunion de " + mReunion.getName());
-        mRoom.setText(mReunion.getRoom());
-        mTime.setText(mReunion.getHour() + "H" + mReunion.getMinute());
-        mMember.setText(mReunion.toStringDetail());
+        mTitle.setText(String.format("Réunion de %s", mMeeting.getName()));
+        mMeetingInformation.setText(String.format("Salle %s à %sH%s", mMeeting.getRoom(), mMeeting.getHour(), mMeeting.getMinute()));
+        mMember.setText(mMeeting.toStringDetail());
     }
 }

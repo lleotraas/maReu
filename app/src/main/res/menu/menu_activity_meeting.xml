@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_activity_meeting_sorting"
+        android:icon="@drawable/ic_filter_list_24"
+        app:showAsAction="ifRoom"
+        android:title="Sorting">
+        <menu>
+            <item
+                android:id="@+id/menu_activity_meeting_sorting_time"
+                android:title="Trier par heure"
+                app:showAsAction="ifRoom"
+                android:icon="@drawable/ic_schedule_24">
+            </item>
+            <item
+                android:id="@+id/menu_activity_meeting_sorting_room"
+                android:title="Trier par salle"
+                app:showAsAction="ifRoom"
+                android:icon="@drawable/ic_meeting_room_24">
+            </item>
+            <item
+                android:id="@+id/menu_activity_meeting_sorting_cancel"
+                android:title="Pas de tri"
+                app:showAsAction="ifRoom">
+            </item>
+        </menu>
+    </item>
+</menu>

@@ -11,7 +11,7 @@
         android:theme="@style/Theme.MaReu">
         <activity android:name=".view.detail.ReunionDetailActivity"/>
         <activity android:name=".view.add.ReunionAddActivity" />
-        <activity android:name=".view.meeting.ReunionActivity">
+        <activity android:name=".view.meeting.MeetingListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
