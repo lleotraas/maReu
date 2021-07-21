@@ -5,7 +5,7 @@
         android:id="@+id/menu_activity_meeting_sorting"
         android:icon="@drawable/ic_filter_list_24"
         app:showAsAction="ifRoom"
-        android:title="Sorting">
+        android:title="Trier">
         <menu>
             <item
                 android:id="@+id/menu_activity_meeting_sorting_time"
@@ -22,7 +22,8 @@
             <item
                 android:id="@+id/menu_activity_meeting_sorting_cancel"
                 android:title="Pas de tri"
-                app:showAsAction="ifRoom">
+                app:showAsAction="ifRoom"
+                android:icon="@drawable/baseline_highlight_off_24">
             </item>
         </menu>
     </item>

@@ -18,6 +18,7 @@ public class ReunionDetailActivity extends AppCompatActivity {
     private TextView mTitle;
     private TextView mMember;
     private TextView mMeetingInformation;
+    private TextView mMemberTitleTxt;
     private Meeting mMeeting;
 
     @Override
@@ -27,6 +28,7 @@ public class ReunionDetailActivity extends AppCompatActivity {
 
         mTitle = findViewById(R.id.activity_detail_meeting_title_txt);
         mMeetingInformation = findViewById(R.id.activity_detail_meeting_room_txt);
+        mMemberTitleTxt = findViewById(R.id.activity_detail_meeting_member_title_txt);
         mMember = findViewById(R.id.activity_detail_meeting_member_list_txt);
 
         this.configureToolbar();
@@ -56,6 +58,7 @@ public class ReunionDetailActivity extends AppCompatActivity {
     private void initDetails() {
         mTitle.setText(String.format("Réunion de %s", mMeeting.getName()));
         mMeetingInformation.setText(String.format("Salle %s à %sH%s", mMeeting.getRoom(), mMeeting.getHour(), mMeeting.getMinute()));
+        mMemberTitleTxt.setText(String.format("Participants (%d)", mMeeting.getMembers().size()));
         mMember.setText(mMeeting.toStringDetail());
     }
 }

@@ -62,21 +62,14 @@ public class MeetingListActivityTest {
         assertThat(mActivity, notNullValue());
         service = DependencyInjector.getReunionApiService();
         assertThat(service, notNullValue());
-        Meeting meetingTest = new Meeting(-12345678, "14", "15", "B", "reunionTest", Arrays.asList("un@lamzone.com", "deux@lamzone.com", "trois@lamzone.com", "quatre@lamzone.com"));
-        Meeting meetingTest1 = new Meeting(-12345678, "10", "30", "J", "reunionTest", Arrays.asList("un@lamzone.com", "deux@lamzone.com", "trois@lamzone.com", "quatre@lamzone.com"));
-        service.getMeeting().add(meetingTest);
-        service.getMeeting().add(meetingTest1);
         childCount = service.getMeeting().size();
     }
-    @After
-    public void finish() {
-        service.getMeeting().removeAll(service.getMeeting());
-        mActivity = null;
-        service = null;
-    }
 
+    /**
+     * We add an item in an empty list then we add a second item with the same method for the next tests
+     */
     @Test
-    public void ReunionAddActivity_shouldAddItem(){
+    public void test1_ReunionAddActivity_shouldAddItem(){
         Calendar calendar = Calendar.getInstance(Locale.FRANCE);
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
@@ -127,18 +120,16 @@ public class MeetingListActivityTest {
                 .check(matches(withText("1." + firstMember + "\n" + "2." + secondMember + "\n")));
         onView(withId(R.id.activity_add_meeting_validate_btn))
                 .perform(click());
+        addReunionForTest();
         onView(withId(R.id.list_meeting))
-                .check(matches(hasChildCount(childCount+1)));
+                .check(matches(hasChildCount(childCount+2)));
     }
 
+    /**
+     *  We verifify when we click on an item in the recycler view that launch a new activity
+     */
     @Test
-    public void ReunionDetailActivity_activityLaunched(){
-        onView(withId(R.id.menu_activity_meeting_sorting))
-                .perform(click());
-        onView(withText("Pas de tri"))
-                .perform(click());
-        onView(withId(R.id.list_meeting))
-                .check(matches(hasChildCount(childCount)));
+    public void test2_ReunionDetailActivity_activityLaunched(){
         onView(withId(R.id.list_meeting))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
         onView(withId(R.id.activity_detail_meeting_member_list_txt));
@@ -147,14 +138,17 @@ public class MeetingListActivityTest {
                 .check(matches(hasChildCount(childCount)));
     }
 
+    /**
+     * We ensure the hour filter show us only one item of two
+     */
     @Test
-    public void ReunionActivity_hourSorted(){
+    public void test3_ReunionActivity_hourSorted(){
         onView(withId(R.id.menu_activity_meeting_sorting))
                 .perform(click());
         onView(withText("Trier par heure"))
                 .perform(click());
         onView(isAssignableFrom(TimePicker.class))
-                .perform(PickerActions.setTime(10,00));
+                .perform(PickerActions.setTime(10, 0));
         onView(withText("OK"))
                 .perform(click());
         onView(withId(R.id.list_meeting))
@@ -167,8 +161,11 @@ public class MeetingListActivityTest {
                 .check(matches(hasChildCount(childCount)));
     }
 
+    /**
+     * We ensure the room filter show us only one item of two
+     */
     @Test
-    public void ReunionActivity_roomSorted(){
+    public void test4_ReunionActivity_roomSorted(){
         onView(withId(R.id.menu_activity_meeting_sorting))
                 .perform(click());
         onView(withText("Trier par salle"))
@@ -187,20 +184,54 @@ public class MeetingListActivityTest {
                 .check(matches(hasChildCount(childCount)));
     }
 
-
+    /**
+     * We ensure the clicked item is deleted
+     */
     @Test
-    public void ReunionActivity_shouldRemoveItem(){
-        onView(withId(R.id.menu_activity_meeting_sorting))
-                .perform(click());
-        onView(withText("Pas de tri"))
-                .perform(click());
-        onView(withId(R.id.list_meeting))
-                .check(matches(hasChildCount(childCount)));
+    public void test5_ReunionActivity_shouldRemoveItem(){
         onView(allOf(withId(R.id.list_meeting),isDisplayed()))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, new DeleteViewAction()));
         onView(withId(R.id.list_meeting))
                 .check(matches(hasChildCount(childCount - 1)));
     }
 
+    /**
+     * Same method as the test1 with different hour and room
+     */
+    private void addReunionForTest(){
+        Calendar calendar = Calendar.getInstance(Locale.FRANCE);
+        int hour = 10;
+        int minute = calendar.get(Calendar.MINUTE);
+        String firstMember = "member_test@hotmail.fr";
+        String secondMember = "member_test@hotmail.fr";
 
+        onView(withId(R.id.activity_main_fab))
+                .perform(click());
+        onView(withId(R.id.activity_add_meeting_choose_time_input))
+                .perform(click());
+        onView(isAssignableFrom(TimePicker.class))
+                .perform(PickerActions.setTime(hour,minute));
+        onView(withText("OK"))
+                .perform(click());
+        onView(withId(R.id.activity_add_meeting_room_input))
+                .perform(click());
+        onView(withText("B"))
+                .perform(click());
+        onView(withText("OK"))
+                .perform(click());
+        onView(withId(R.id.activity_add_meeting_name_input))
+                .perform(replaceText("reunion_Test"));
+        onView(withId(R.id.activity_add_meeting_members_input))
+                .perform(replaceText(firstMember));
+        onView(withId(R.id.activity_add_meeting_members_btn))
+                .perform(click());
+        onView(withId(R.id.activity_add_meeting_name_input))
+                .perform(replaceText("reunion_Test2"));
+        onView(withId(R.id.activity_add_meeting_members_input))
+                .perform(replaceText(secondMember));
+        onView(withId(R.id.activity_add_meeting_members_btn))
+                .perform(click());
+        onView(withId(R.id.activity_add_meeting_validate_btn))
+                .perform(click());
+    }
 }

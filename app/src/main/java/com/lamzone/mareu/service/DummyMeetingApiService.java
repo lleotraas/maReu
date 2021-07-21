@@ -30,6 +30,11 @@ public class DummyMeetingApiService implements MeetingApiService {
         mMeetings.add(meeting);
     }
 
+    /**
+     * Return a local list contains meetings with the hour in @param
+     * @param hour
+     * @return
+     */
     @Override
     public List<Meeting> sortingByTime(int hour) {
         List<Meeting> meetings = new ArrayList<>();
@@ -42,6 +47,11 @@ public class DummyMeetingApiService implements MeetingApiService {
         return meetings;
     }
 
+    /**
+     * Return a local list contains meetings with the room in @param
+     * @param room
+     * @return
+     */
     @Override
     public List<Meeting> sortingByRoom(String room) {
         List<Meeting> meetings = new ArrayList<>();
@@ -53,11 +63,21 @@ public class DummyMeetingApiService implements MeetingApiService {
         return meetings;
     }
 
+    /**
+     * Return the hour string format for the UI
+     * @param hour
+     * @param minute
+     * @return
+     */
     @Override
     public String makeHourString(int hour, int minute) {
         return String.format("%02d:%02d", hour, minute);
     }
 
+    /**
+     * Return a random color for the meeting image
+     * @return
+     */
     @Override
     public int getImageColor() {
         Random random = new Random();
