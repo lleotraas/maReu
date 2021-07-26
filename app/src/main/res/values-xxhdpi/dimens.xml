@@ -7,7 +7,7 @@
 
     <dimen name="line_spacing_normal">6dp</dimen>
 
-    <dimen name="margin_small_size">6dp</dimen>
+    <dimen name="margin_small_size">12dp</dimen>
     <dimen name="margin_normal_size">12dp</dimen>
     <dimen name="margin_large_size">20dp</dimen>
     <dimen name="margin_extra_large_size">24dp</dimen>

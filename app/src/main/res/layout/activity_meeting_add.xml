@@ -94,7 +94,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/activity_add_meeting_name_input"
                 app:layout_constraintBottom_toTopOf="@+id/activity_add_meeting_members_list_txt"
                 app:layout_constraintEnd_toEndOf="@id/activity_add_meeting_members_input"
-                android:layout_margin="@dimen/margin_normal_size"
+                android:layout_margin="@dimen/margin_small_size"
                 android:src="@drawable/ic_add_24"/>
 
         </LinearLayout>
