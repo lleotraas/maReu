@@ -15,12 +15,12 @@ import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.lamzone.mareu.R;
+import com.lamzone.mareu.databinding.ActivityMeetingListBinding;
 import com.lamzone.mareu.injector.DependencyInjector;
 import com.lamzone.mareu.model.Meeting;
 import com.lamzone.mareu.service.MeetingApiService;
-import com.lamzone.mareu.view.add.ReunionAddActivity;
+import com.lamzone.mareu.view.add.MeetingAddActivity;
 import com.lamzone.mareu.view.material_dialog.RoomChoice;
 import com.lamzone.mareu.view.timePicker_dialog.TimeChoice;
 
@@ -33,23 +33,21 @@ public class MeetingListActivity extends AppCompatActivity implements RoomChoice
     private RecyclerView mRecyclerView;
     private MeetingListAdapter mMeetingListAdapter;
     private MeetingApiService mApiService;
-    private FloatingActionButton mAddButton;
+    private ActivityMeetingListBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_meeting_list);
-        mAddButton = findViewById(R.id.activity_main_fab);
+        binding = ActivityMeetingListBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
         mRecyclerView = findViewById(R.id.list_meeting);
         mApiService = DependencyInjector.getReunionApiService();
         this.configureToolbar();
 
-        mAddButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent addReunion = new Intent(MeetingListActivity.this, ReunionAddActivity.class);
-                startActivity(addReunion);
-            }
+        binding.activityMainFab.setOnClickListener(v -> {
+            Intent addReunion = new Intent(MeetingListActivity.this, MeetingAddActivity.class);
+            startActivity(addReunion);
         });
     }
 

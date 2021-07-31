@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lamzone.mareu.R;
+import com.lamzone.mareu.databinding.ActivityMeetingListBinding;
 import com.lamzone.mareu.model.Meeting;
 
 /**

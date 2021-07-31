@@ -10,7 +10,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/toolbar"/>
+        <include layout="@layout/toolbar"
+            />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/activity_detail_meeting_title_txt"
@@ -24,10 +25,11 @@
             android:text="Réunion de Mario"
             android:textSize="@dimen/text_extralarge_size"
             android:textStyle="bold"
+            android:textColor="@color/black"
             android:textAlignment="center"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/activity_detail_meeting_room_txt"
+            android:id="@+id/activity_detail_meeting_informations_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/activity_detail_meeting_title_txt"
@@ -42,7 +44,7 @@
             android:id="@+id/activity_detail_meeting_member_title_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/activity_detail_meeting_room_txt"
+            app:layout_constraintTop_toBottomOf="@+id/activity_detail_meeting_informations_txt"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_margin="@dimen/margin_large_size"
@@ -50,6 +52,7 @@
             android:text="Participants"
             android:textSize="@dimen/text_extralarge_size"
             android:textStyle="bold"
+            android:textColor="@color/black"
             android:textAlignment="center"/>
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -62,7 +65,7 @@
             android:background="@drawable/outline"
             android:layout_margin="@dimen/margin_large_size"
             android:padding="@dimen/padding_normal_size"
-            android:text=" freddy@hotmail.com \n lleotraas@gmail.com \n machintruc@amazon.uk \n toutdroit@wanadoo.jp \n johndoe@winamax.com"
+            android:text=" un@hotmail.com \n deux@gmail.com \n trois@amazon.uk \n quatre@wanadoo.jp \n cinq@winamax.com"
             android:textSize="@dimen/text_large_size"
             android:lineSpacingExtra="@dimen/line_spacing_normal"/>
 

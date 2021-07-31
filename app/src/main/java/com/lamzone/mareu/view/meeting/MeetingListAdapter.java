@@ -11,7 +11,7 @@ import com.lamzone.mareu.R;
 import com.lamzone.mareu.injector.DependencyInjector;
 import com.lamzone.mareu.model.Meeting;
 import com.lamzone.mareu.service.MeetingApiService;
-import com.lamzone.mareu.view.detail.ReunionDetailActivity;
+import com.lamzone.mareu.view.detail.MeetingDetailActivity;
 
 import java.util.List;
 
@@ -50,7 +50,7 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingViewHolder> 
             @Override
             public void onClick(View v) {
                 Meeting extraMeeting = mMeetings.get(holder.getAdapterPosition());
-                Intent detailActivity = new Intent(v.getContext(), ReunionDetailActivity.class);
+                Intent detailActivity = new Intent(v.getContext(), MeetingDetailActivity.class);
                 detailActivity.putExtra("reunion", extraMeeting);
                 v.getContext().startActivity(detailActivity);
             }

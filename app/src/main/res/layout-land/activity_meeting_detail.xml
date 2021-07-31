@@ -27,7 +27,7 @@
             android:textAlignment="center"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/activity_detail_meeting_room_txt"
+            android:id="@+id/activity_detail_meeting_informations_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/activity_detail_meeting_title_txt"
@@ -42,7 +42,7 @@
             android:id="@+id/activity_detail_meeting_member_title_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/activity_detail_meeting_room_txt"
+            app:layout_constraintTop_toBottomOf="@+id/activity_detail_meeting_informations_txt"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_margin="@dimen/margin_large_size"

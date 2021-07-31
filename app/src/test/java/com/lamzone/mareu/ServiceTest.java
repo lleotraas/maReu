@@ -38,6 +38,7 @@ public class ServiceTest {
     @After
     public void finish(){
         service.getMeeting().removeAll(service.getMeeting());
+        service = null;
     }
 
     @Test
@@ -66,9 +67,9 @@ public class ServiceTest {
         //ARRANGE
         int hourExpected = 3;
         //ACT
-        List<Meeting> sortingExpected = service.sortingByTime(14);
+        List<Meeting> sortingTime = service.sortingByTime(14);
         //ASSERT
-        assertEquals(hourExpected, sortingExpected.size());
+        assertEquals(hourExpected, sortingTime.size());
     }
 
     @Test
@@ -76,9 +77,9 @@ public class ServiceTest {
         //ARRANGE
         int roomNumberExpected = 2;
         //ACT
-        List<Meeting> sortingExpected = service.sortingByRoom("J");
+        List<Meeting> sortingRoom = service.sortingByRoom("J");
         //ASSERT
-        assertEquals(roomNumberExpected, sortingExpected.size());
+        assertEquals(roomNumberExpected, sortingRoom.size());
     }
 
     @Test

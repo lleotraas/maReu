@@ -8,21 +8,17 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
 import com.lamzone.mareu.injector.DependencyInjector;
-import com.lamzone.mareu.model.Meeting;
 import com.lamzone.mareu.service.MeetingApiService;
 import com.lamzone.mareu.utils.DeleteViewAction;
 import com.lamzone.mareu.view.meeting.MeetingListActivity;
 
-import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -69,7 +65,7 @@ public class MeetingListActivityTest {
      * We add an item in an empty list then we add a second item with the same method for the next tests
      */
     @Test
-    public void test1_ReunionAddActivity_shouldAddItem(){
+    public void test1_MeetingAddActivity_shouldAddItem(){
         Calendar calendar = Calendar.getInstance(Locale.FRANCE);
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
@@ -120,7 +116,7 @@ public class MeetingListActivityTest {
                 .check(matches(withText("1." + firstMember + "\n" + "2." + secondMember + "\n")));
         onView(withId(R.id.activity_add_meeting_validate_btn))
                 .perform(click());
-        addReunionForTest();
+        addMeetingForTest();
         onView(withId(R.id.list_meeting))
                 .check(matches(hasChildCount(childCount+2)));
     }
@@ -129,7 +125,7 @@ public class MeetingListActivityTest {
      *  We verifify when we click on an item in the recycler view that launch a new activity
      */
     @Test
-    public void test2_ReunionDetailActivity_activityLaunched(){
+    public void test2_MeetingDetailActivity_activityLaunched(){
         onView(withId(R.id.list_meeting))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
         onView(withId(R.id.activity_detail_meeting_member_list_txt));
@@ -142,13 +138,15 @@ public class MeetingListActivityTest {
      * We ensure the hour filter show us only one item of two
      */
     @Test
-    public void test3_ReunionActivity_hourSorted(){
+    public void test3_MeetingActivity_hourSorted(){
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
         onView(withId(R.id.menu_activity_meeting_sorting))
                 .perform(click());
         onView(withText("Trier par heure"))
                 .perform(click());
         onView(isAssignableFrom(TimePicker.class))
-                .perform(PickerActions.setTime(10, 0));
+                .perform(PickerActions.setTime(hour, 0));
         onView(withText("OK"))
                 .perform(click());
         onView(withId(R.id.list_meeting))
@@ -165,7 +163,7 @@ public class MeetingListActivityTest {
      * We ensure the room filter show us only one item of two
      */
     @Test
-    public void test4_ReunionActivity_roomSorted(){
+    public void test4_MeetingActivity_roomSorted(){
         onView(withId(R.id.menu_activity_meeting_sorting))
                 .perform(click());
         onView(withText("Trier par salle"))
@@ -188,7 +186,7 @@ public class MeetingListActivityTest {
      * We ensure the clicked item is deleted
      */
     @Test
-    public void test5_ReunionActivity_shouldRemoveItem(){
+    public void test5_MeetingActivity_shouldRemoveItem(){
         onView(allOf(withId(R.id.list_meeting),isDisplayed()))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, new DeleteViewAction()));
         onView(withId(R.id.list_meeting))
@@ -198,9 +196,9 @@ public class MeetingListActivityTest {
     /**
      * Same method as the test1 with different hour and room
      */
-    private void addReunionForTest(){
+    private void addMeetingForTest(){
         Calendar calendar = Calendar.getInstance(Locale.FRANCE);
-        int hour = 10;
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
         String firstMember = "member_test@hotmail.fr";
         String secondMember = "member_test@hotmail.fr";
@@ -210,7 +208,7 @@ public class MeetingListActivityTest {
         onView(withId(R.id.activity_add_meeting_choose_time_input))
                 .perform(click());
         onView(isAssignableFrom(TimePicker.class))
-                .perform(PickerActions.setTime(hour,minute));
+                .perform(PickerActions.setTime(hour + 1,minute));
         onView(withText("OK"))
                 .perform(click());
         onView(withId(R.id.activity_add_meeting_room_input))
