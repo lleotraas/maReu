@@ -1,6 +1,6 @@
 [![forthebadge](https://forthebadge.com/images/badges/built-for-android.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/made-with-java.svg)](https://forthebadge.com)
-# maReu
+# maRéu
 
 MaRéu est une application de gestion de réunion pour l'entreprise Lamzone.
 
@@ -11,3 +11,8 @@ MaRéu est une application de gestion de réunion pour l'entreprise Lamzone.
 * Project version control.
 * Copiez le lien dans la case URL.
 * Cliquez sur clone.
+
+### Auteurs
+
+* Charles Freddy
+* Lamzone
