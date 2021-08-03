@@ -56,7 +56,7 @@ public class MeetingListActivityTest {
     public void setUp(){
         mActivity = mActivityTestRule.getActivity();
         assertThat(mActivity, notNullValue());
-        service = DependencyInjector.getReunionApiService();
+        service = DependencyInjector.getMeetingApiService();
         assertThat(service, notNullValue());
         childCount = service.getMeeting().size();
     }

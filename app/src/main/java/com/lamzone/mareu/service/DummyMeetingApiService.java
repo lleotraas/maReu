@@ -13,7 +13,7 @@ import java.util.Random;
  */
 public class DummyMeetingApiService implements MeetingApiService {
 
-    private List<Meeting> mMeetings = DummyMeeting.generateReunion();
+    private List<Meeting> mMeetings = DummyMeeting.generateMeeting();
 
     @Override
     public List<Meeting> getMeeting() {
@@ -28,39 +28,6 @@ public class DummyMeetingApiService implements MeetingApiService {
     @Override
     public void addMeeting(Meeting meeting) {
         mMeetings.add(meeting);
-    }
-
-    /**
-     * Return a local list contains meetings with the hour in @param
-     * @param hour
-     * @return
-     */
-    @Override
-    public List<Meeting> sortingByTime(int hour) {
-        List<Meeting> meetings = new ArrayList<>();
-        String hourString = String.format("%02d", hour);
-        for (int index = 0; index < mMeetings.size(); index++){
-            if (mMeetings.get(index).getHour().contains(hourString)){
-                meetings.add(mMeetings.get(index));
-            }
-        }
-        return meetings;
-    }
-
-    /**
-     * Return a local list contains meetings with the room in @param
-     * @param room
-     * @return
-     */
-    @Override
-    public List<Meeting> sortingByRoom(String room) {
-        List<Meeting> meetings = new ArrayList<>();
-        for (int index = 0; index < mMeetings.size(); index++){
-            if (mMeetings.get(index).getRoom().contains(room)){
-                meetings.add(mMeetings.get(index));
-            }
-        }
-        return meetings;
     }
 
     /**

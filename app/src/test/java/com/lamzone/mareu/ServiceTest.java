@@ -23,7 +23,7 @@ public class ServiceTest {
 
     @Before
     public void setup(){
-        service = DependencyInjector.getReunionApiService();
+        service = DependencyInjector.getMeetingApiService();
         Meeting meetingTest = new Meeting(-12345678, "14", "15", "B", "reunionTest", Arrays.asList("un@lamzone.com", "deux@lamzone.com", "trois@lamzone.com", "quatre@lamzone.com"));
         Meeting meetingTest1 = new Meeting(-12345678, "10", "30", "J", "reunionTest", Arrays.asList("un@lamzone.com", "deux@lamzone.com", "trois@lamzone.com", "quatre@lamzone.com"));
         Meeting meetingTest2 = new Meeting(-12345678, "14", "45", "B", "reunionTest", Arrays.asList("un@lamzone.com", "deux@lamzone.com", "trois@lamzone.com", "quatre@lamzone.com"));
@@ -60,26 +60,6 @@ public class ServiceTest {
         service.removeMeeting(meetingToDelete);
         //ASSERT
         assertFalse(service.getMeeting().contains(meetingToDelete));
-    }
-
-    @Test
-    public void sortingByTimeWithSuccess(){
-        //ARRANGE
-        int hourExpected = 3;
-        //ACT
-        List<Meeting> sortingTime = service.sortingByTime(14);
-        //ASSERT
-        assertEquals(hourExpected, sortingTime.size());
-    }
-
-    @Test
-    public void sortingByRoomWithSuccess(){
-        //ARRANGE
-        int roomNumberExpected = 2;
-        //ACT
-        List<Meeting> sortingRoom = service.sortingByRoom("J");
-        //ASSERT
-        assertEquals(roomNumberExpected, sortingRoom.size());
     }
 
     @Test

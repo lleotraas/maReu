@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,25 +15,29 @@ import com.lamzone.mareu.model.Meeting;
 import com.lamzone.mareu.service.MeetingApiService;
 import com.lamzone.mareu.view.detail.MeetingDetailActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by lleotraas on 04.
  */
-public class MeetingListAdapter extends RecyclerView.Adapter<MeetingViewHolder> {
+public class MeetingListAdapter extends RecyclerView.Adapter<MeetingViewHolder> implements Filterable {
 
     private List<Meeting> mMeetings;
+    private List<Meeting> mMeetingListfiltered;
     private MeetingApiService mApiService;
 
     public MeetingListAdapter(List<Meeting> meetings) {
         mMeetings = meetings;
+        mMeetingListfiltered = new ArrayList<>(mMeetings);
     }
+
 
     @Override
     public MeetingViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.row_meeting_list, parent, false);
-        mApiService = DependencyInjector.getReunionApiService();
+        mApiService = DependencyInjector.getMeetingApiService();
         return new MeetingViewHolder(view);
     }
 
@@ -39,21 +45,17 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingViewHolder> 
     public void onBindViewHolder(MeetingViewHolder holder, int position) {
         holder.bind(mMeetings.get(position));
 
-        holder.getDelete().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mApiService.removeMeeting(mMeetings.get(position));
-                notifyDataSetChanged();
-            }
+        holder.getDelete().setOnClickListener(v -> {
+            mMeetingListfiltered.remove(mMeetings.get(position));
+            mApiService.getMeeting().remove(mMeetings.get(position));
+            notifyDataSetChanged();
         });
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Meeting extraMeeting = mMeetings.get(holder.getAdapterPosition());
-                Intent detailActivity = new Intent(v.getContext(), MeetingDetailActivity.class);
-                detailActivity.putExtra("reunion", extraMeeting);
-                v.getContext().startActivity(detailActivity);
-            }
+
+        holder.itemView.setOnClickListener(v -> {
+            Meeting extraMeeting = mMeetings.get(holder.getAdapterPosition());
+            Intent detailActivity = new Intent(v.getContext(), MeetingDetailActivity.class);
+            detailActivity.putExtra("reunion", extraMeeting);
+            v.getContext().startActivity(detailActivity);
         });
     }
 
@@ -61,4 +63,39 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingViewHolder> 
     public int getItemCount() {
         return mMeetings.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return mFilter;
+    }
+
+    private Filter mFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Meeting> filteredList = new ArrayList<>();
+            if (constraint == null || constraint.length() == 0){
+                filteredList.addAll(mMeetingListfiltered);
+            }else{
+                String filteredPattern = constraint.toString().toUpperCase().trim();
+                for (Meeting meeting: mMeetingListfiltered) {
+                    if(meeting.getHour().toUpperCase().contains(filteredPattern)){
+                        filteredList.add(meeting);
+                    }
+                    if(meeting.getRoom().toUpperCase().contains(filteredPattern)){
+                        filteredList.add(meeting);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            mApiService.getMeeting().clear();
+            mApiService.getMeeting().addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+    };
 }

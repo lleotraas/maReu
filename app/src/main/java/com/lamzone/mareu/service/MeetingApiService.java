@@ -15,10 +15,6 @@ public interface MeetingApiService {
 
     void addMeeting(Meeting meeting);
 
-    List<Meeting> sortingByTime(int hour);
-
-    List<Meeting> sortingByRoom(String room);
-
     String makeHourString(int hour, int minute);
 
     int getImageColor();

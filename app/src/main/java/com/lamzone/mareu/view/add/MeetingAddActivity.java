@@ -41,7 +41,7 @@ public class MeetingAddActivity extends AppCompatActivity implements RoomChoice.
         View view = binding.getRoot();
         setContentView(view);
 
-        mApiService = DependencyInjector.getReunionApiService();
+        mApiService = DependencyInjector.getMeetingApiService();
 
         mIndex = 0;
 

@@ -10,5 +10,5 @@ public class DependencyInjector {
 
     private static MeetingApiService service = new DummyMeetingApiService();
 
-    public static MeetingApiService getReunionApiService(){ return service;}
+    public static MeetingApiService getMeetingApiService(){ return service;}
 }

@@ -42,7 +42,7 @@ public class MeetingListActivity extends AppCompatActivity implements RoomChoice
         View view = binding.getRoot();
         setContentView(view);
         mRecyclerView = findViewById(R.id.list_meeting);
-        mApiService = DependencyInjector.getReunionApiService();
+        mApiService = DependencyInjector.getMeetingApiService();
         this.configureToolbar();
 
         binding.activityMainFab.setOnClickListener(v -> {
@@ -63,15 +63,9 @@ public class MeetingListActivity extends AppCompatActivity implements RoomChoice
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-
-    }
-
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
-        Log.d(TAG, "onPostResume: resumed");
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: resumed");
         setAdapter(mApiService.getMeeting());
     }
 
@@ -96,23 +90,34 @@ public class MeetingListActivity extends AppCompatActivity implements RoomChoice
                     return true;
 
                 case R.id.menu_activity_meeting_sorting_cancel:
-                    setAdapter(mApiService.getMeeting());
+                    mMeetingListAdapter.getFilter().filter("");
                     return true;
 
                 default:return super.onOptionsItemSelected(item);
             }
     }
 
+    /**
+     * show meetings sorted by room
+     * @param list
+     * @param position
+     */
     @Override
     public void onPositiveButtonClicked(String[] list, int position) {
-        setAdapter(mApiService.sortingByRoom(list[position]));
+        mMeetingListAdapter.getFilter().filter(list[position]);
     }
 
     @Override
     public void onNegativeButtonClicked() {}
 
+    /**
+     * show meetings sorted by hour
+     * @param view
+     * @param hour
+     * @param minute
+     */
     @Override
     public void onTimeSet(TimePicker view, int hour, int minute) {
-        setAdapter(mApiService.sortingByTime(hour));
+        mMeetingListAdapter.getFilter().filter(String.format("%02d", hour));
     }
 }
