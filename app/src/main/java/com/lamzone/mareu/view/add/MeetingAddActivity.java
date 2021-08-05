@@ -79,7 +79,7 @@ public class MeetingAddActivity extends AppCompatActivity implements RoomChoice.
 
     @Override
     public void onTimeSet(TimePicker view, int hour, int minute) {
-        binding.activityAddMeetingChooseTimeInput.setText("Heure : " + mApiService.makeHourString(hour, minute));
+        binding.activityAddMeetingChooseTimeInput.setText(String.format("Heure : %s", mApiService.makeHourString(hour, minute)));
         enableValidateBtn();
     }
 

@@ -67,6 +67,7 @@
             app:layout_constraintStart_toStartOf="@id/activity_add_meeting_name_input"
             app:layout_constraintEnd_toEndOf="@id/activity_add_meeting_name_input"
             android:layout_margin="@dimen/margin_normal_size"
+            android:padding="@dimen/layout_padding_normal_size"
             android:orientation="horizontal"
             android:background="@drawable/outline">
 
@@ -78,7 +79,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/activity_add_meeting_name_input"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginHorizontal="@dimen/margin_large_size"
+                android:layout_marginHorizontal="@dimen/layout_margin_horizontal_normal_size"
                 android:hint="participants@email.com"
                 android:inputType="textEmailAddress"
                 android:singleLine="true"
