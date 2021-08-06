@@ -24,12 +24,10 @@ import java.util.List;
 public class MeetingListAdapter extends RecyclerView.Adapter<MeetingViewHolder> implements Filterable {
 
     private List<Meeting> mMeetings;
-    private List<Meeting> mMeetingListfiltered;
     private MeetingApiService mApiService;
 
     public MeetingListAdapter(List<Meeting> meetings) {
         mMeetings = meetings;
-        mMeetingListfiltered = new ArrayList<>(mMeetings);
     }
 
 
@@ -46,7 +44,7 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingViewHolder> 
         holder.bind(mMeetings.get(position));
 
         holder.getDelete().setOnClickListener(v -> {
-            mMeetingListfiltered.remove(mMeetings.get(position));
+            mApiService.removeMeetingListFiltered(mMeetings.get(position));
             mApiService.getMeeting().remove(mMeetings.get(position));
             notifyDataSetChanged();
         });
@@ -72,22 +70,8 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingViewHolder> 
     private Filter mFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            List<Meeting> filteredList = new ArrayList<>();
-            if (constraint == null || constraint.length() == 0){
-                filteredList.addAll(mMeetingListfiltered);
-            }else{
-                String filteredPattern = constraint.toString().toUpperCase().trim();
-                for (Meeting meeting: mMeetingListfiltered) {
-                    if(meeting.getHour().toUpperCase().contains(filteredPattern)){
-                        filteredList.add(meeting);
-                    }
-                    if(meeting.getRoom().toUpperCase().contains(filteredPattern)){
-                        filteredList.add(meeting);
-                    }
-                }
-            }
             FilterResults results = new FilterResults();
-            results.values = filteredList;
+            results.values = mApiService.meetingFilter(constraint);
             return results;
         }
 

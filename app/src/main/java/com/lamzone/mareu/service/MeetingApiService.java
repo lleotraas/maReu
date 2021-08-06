@@ -11,9 +11,15 @@ public interface MeetingApiService {
 
     List<Meeting> getMeeting();
 
+    List<Meeting> getMeetingListFiltered();
+
     void removeMeeting(Meeting meeting);
 
+    void removeMeetingListFiltered(Meeting meeting);
+
     void addMeeting(Meeting meeting);
+
+    List<Meeting> meetingFilter(CharSequence constraint);
 
     String makeHourString(int hour, int minute);
 

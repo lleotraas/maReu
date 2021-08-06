@@ -14,10 +14,16 @@ import java.util.Random;
 public class DummyMeetingApiService implements MeetingApiService {
 
     private List<Meeting> mMeetings = DummyMeeting.generateMeeting();
+    private List<Meeting> mMeetingListfiltered = new ArrayList<>(mMeetings);
 
     @Override
     public List<Meeting> getMeeting() {
         return mMeetings;
+    }
+
+    @Override
+    public List<Meeting> getMeetingListFiltered() {
+        return mMeetingListfiltered;
     }
 
     @Override
@@ -26,8 +32,32 @@ public class DummyMeetingApiService implements MeetingApiService {
     }
 
     @Override
+    public void removeMeetingListFiltered(Meeting meeting) {
+        mMeetingListfiltered.remove(meeting);
+    }
+
+    @Override
     public void addMeeting(Meeting meeting) {
         mMeetings.add(meeting);
+    }
+
+    @Override
+    public List<Meeting> meetingFilter(CharSequence constraint) {
+        List<Meeting> filteredList = new ArrayList<>();
+        if (constraint == null || constraint.length() == 0){
+            filteredList.addAll(mMeetingListfiltered);
+        }else{
+            String filteredPattern = constraint.toString().toUpperCase().trim();
+            for (Meeting meeting: mMeetingListfiltered) {
+                if(meeting.getHour().toUpperCase().contains(filteredPattern)){
+                    filteredList.add(meeting);
+                }
+                if(meeting.getRoom().toUpperCase().contains(filteredPattern)){
+                    filteredList.add(meeting);
+                }
+            }
+        }
+        return filteredList;
     }
 
     /**
