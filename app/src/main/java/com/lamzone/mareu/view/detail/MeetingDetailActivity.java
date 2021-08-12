@@ -53,7 +53,7 @@ public class MeetingDetailActivity extends AppCompatActivity {
     private void initDetails() {
         binding.activityDetailMeetingTitleTxt.setText(String.format("Réunion de %s", mMeeting.getName()));
         binding.activityDetailMeetingInformationsTxt.setText(String.format("Salle %s à %sH%s", mMeeting.getRoom(), mMeeting.getHour(), mMeeting.getMinute()));
-        binding .activityDetailMeetingMemberTitleTxt.setText(String.format("Participants (%d)", mMeeting.getMembers().size()));
-        binding.activityDetailMeetingMemberListTxt.setText(mMeeting.toStringDetail());
+//        binding .activityDetailMeetingMemberTitleTxt.setText(String.format("Participants (%d)", mMeeting.getMembers().size()));
+//        binding.activityDetailMeetingMemberListTxt.setText(mMeeting.toStringDetail());
     }
 }

@@ -1,6 +1,7 @@
 package com.lamzone.mareu.service;
 
 import com.lamzone.mareu.model.Meeting;
+import com.lamzone.mareu.model.Member;
 
 import java.util.List;
 
@@ -12,6 +13,8 @@ public interface MeetingApiService {
     List<Meeting> getMeeting();
 
     List<Meeting> getMeetingListFiltered();
+
+    List<Member> getMemberList();
 
     void removeMeeting(Meeting meeting);
 

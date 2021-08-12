@@ -1,3 +1,4 @@
+
 package com.lamzone.mareu.view.meeting;
 
 import android.app.TimePickerDialog;
@@ -47,6 +48,7 @@ public class MeetingListActivity extends AppCompatActivity implements RoomChoice
 
         binding.activityMainFab.setOnClickListener(v -> {
             Intent addReunion = new Intent(MeetingListActivity.this, MeetingAddActivity.class);
+
             startActivity(addReunion);
         });
     }

@@ -15,7 +15,6 @@ import com.lamzone.mareu.model.Meeting;
 import com.lamzone.mareu.service.MeetingApiService;
 import com.lamzone.mareu.view.detail.MeetingDetailActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,7 +41,6 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingViewHolder> 
     @Override
     public void onBindViewHolder(MeetingViewHolder holder, int position) {
         holder.bind(mMeetings.get(position));
-
         holder.getDelete().setOnClickListener(v -> {
             mApiService.removeMeetingListFiltered(mMeetings.get(position));
             mApiService.getMeeting().remove(mMeetings.get(position));

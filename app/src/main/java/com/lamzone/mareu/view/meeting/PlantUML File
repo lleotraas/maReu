@@ -1,0 +1,14 @@
+@startuml
+Meeting:id: long [PK]
+Meeting:colour: int
+Meeting:hour: String
+Meeting:minute: String
+Meeting:room: String
+Meeting:name: String
+
+Meeting->MeetingMember
+
+MeetingMember:id: long [PK]]
+MeetingMember:member: String
+MeetingMember:MeetingId: long [FK]
+@enduml

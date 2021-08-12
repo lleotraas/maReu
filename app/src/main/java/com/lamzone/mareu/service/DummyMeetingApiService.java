@@ -3,6 +3,7 @@ package com.lamzone.mareu.service;
 import android.graphics.Color;
 
 import com.lamzone.mareu.model.Meeting;
+import com.lamzone.mareu.model.Member;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ public class DummyMeetingApiService implements MeetingApiService {
 
     private List<Meeting> mMeetings = DummyMeeting.generateMeeting();
     private List<Meeting> mMeetingListfiltered = new ArrayList<>(mMeetings);
+    private List<Member> mMemberList = DummyMeeting.generateMember();
 
     @Override
     public List<Meeting> getMeeting() {
@@ -24,6 +26,11 @@ public class DummyMeetingApiService implements MeetingApiService {
     @Override
     public List<Meeting> getMeetingListFiltered() {
         return mMeetingListfiltered;
+    }
+
+    @Override
+    public List<Member> getMemberList() {
+        return mMemberList;
     }
 
     @Override
