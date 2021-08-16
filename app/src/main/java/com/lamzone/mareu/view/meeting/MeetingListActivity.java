@@ -2,6 +2,7 @@
 package com.lamzone.mareu.view.meeting;
 
 import android.app.TimePickerDialog;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,12 +14,16 @@ import android.widget.TimePicker;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lamzone.mareu.R;
 import com.lamzone.mareu.databinding.ActivityMeetingListBinding;
+import com.lamzone.mareu.injection.Injection;
+import com.lamzone.mareu.injection.ViewModelFactory;
 import com.lamzone.mareu.injector.DependencyInjector;
+import com.lamzone.mareu.member_list.MemberViewModel;
 import com.lamzone.mareu.model.Meeting;
 import com.lamzone.mareu.service.MeetingApiService;
 import com.lamzone.mareu.view.add.MeetingAddActivity;
@@ -35,6 +40,8 @@ public class MeetingListActivity extends AppCompatActivity implements RoomChoice
     private MeetingListAdapter mMeetingListAdapter;
     private MeetingApiService mApiService;
     private ActivityMeetingListBinding binding;
+    private MemberViewModel mMemberViewModel;
+    private static int MEETING_ID = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +52,24 @@ public class MeetingListActivity extends AppCompatActivity implements RoomChoice
         mRecyclerView = findViewById(R.id.list_meeting);
         mApiService = DependencyInjector.getMeetingApiService();
         this.configureToolbar();
-
+        this.configureViewModel();
         binding.activityMainFab.setOnClickListener(v -> {
             Intent addReunion = new Intent(MeetingListActivity.this, MeetingAddActivity.class);
 
             startActivity(addReunion);
         });
     }
+
+    private void configureViewModel() {
+        ViewModelFactory mViewModelFactory = Injection.provideViewModelFactory(this);
+        this.mMemberViewModel = ViewModelProviders.of(this, mViewModelFactory).get(MemberViewModel.class);
+        this.mMemberViewModel.init(MEETING_ID);
+    }
+
+    private void getCurrentMeeting(int meetingId){
+
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

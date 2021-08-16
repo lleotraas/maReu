@@ -24,7 +24,6 @@ public abstract class MeetingDatabase extends RoomDatabase {
     private static volatile MeetingDatabase INSTANCE;
     public abstract MeetingDao mMeetingDao();
     public abstract MemberDao mMemberDao();
-    public MeetingApiService mApiService;
 
     public static MeetingDatabase getInstance(Context context){
         if (INSTANCE == null){
